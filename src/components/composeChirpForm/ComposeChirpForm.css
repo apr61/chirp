@@ -1,0 +1,41 @@
+.chirpForm{
+    margin: 1rem;
+    margin-top: 2rem;
+}
+
+.chirpForm__wrapper{
+    display: flex;
+    gap: .5rem;
+}
+
+.chirpForm__input{
+    border: 0;
+    width: 100%;
+    font-size: 1.5rem;
+    resize: none;
+}
+
+.chirpForm__input:focus{
+    outline: none;
+}
+
+.chirpForm__user-pic{
+    width: 2rem;
+    height: 2rem;
+}
+
+.chirpForm__options{
+    display: flex;
+    margin-top: 1rem;
+}
+
+.chirpForm__btn{
+    margin-left: auto;
+    border: 0;
+    background-color: blue;
+    cursor: pointer;
+    padding: .5rem 1.5rem;
+    border-radius: 3rem;
+    color: white;
+    font-size: 1.12rem;
+}

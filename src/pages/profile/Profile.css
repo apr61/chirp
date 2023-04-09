@@ -1,0 +1,30 @@
+.profile{
+    position: relative;
+}
+
+.profile__header{
+    padding: .5rem 2rem;
+}
+
+.profile__title{
+    font-size: 1.5rem;
+}
+
+.profile__photo-container{
+    position: relative;
+}
+
+.profile__photo{
+    position: absolute;
+    left: 1rem;
+    bottom: -25%;
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+    border: .25rem solid white;
+}
+
+.profile__details{
+    margin-top: 5rem;
+    padding: 1rem;
+}

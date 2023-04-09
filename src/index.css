@@ -8,6 +8,10 @@ body{
     min-height: 100vh;
 }
 
+img{
+    max-width: 100%;
+    width: 100%;
+}
 .mainPageLayout{
     max-width: 80rem;
     margin-inline: auto;
@@ -18,4 +22,11 @@ body{
     flex: 2;
     border-left: 1px solid black;
     border-right: 1px solid black;
+}
+
+.main__header{
+    position: sticky;
+    top: 0;
+    background-color: hsl(0, 0%, 100%, .9);
+    border-bottom: 1px solid black;
 }

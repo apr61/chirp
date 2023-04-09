@@ -1,0 +1,27 @@
+.chirp-actions-btn{
+    border: 0;
+    padding: .5rem;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 1.12rem;
+    display: flex;
+    gap: .25rem;
+    align-items: center;
+}
+
+.chirp-actions-btn:hover{
+    color: palevioletred;
+}
+
+.chirp-actions-btn:hover .chirp-actions-btn__icon{
+    background-color: pink;
+}
+
+.chirp-actions-btn__icon{
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
