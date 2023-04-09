@@ -1,0 +1,21 @@
+*, *::after, *::before{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    min-height: 100vh;
+}
+
+.mainPageLayout{
+    max-width: 80rem;
+    margin-inline: auto;
+    display: flex;
+}
+
+.mainPageLayout__container{
+    flex: 2;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}

@@ -1,0 +1,69 @@
+.sidebarmenu{
+    --padding-tb: .5rem;
+    --padding-lr: 1rem;
+    --fs-link: 1.5rem;
+    --border-rad: 5rem;
+    position: sticky;
+    top: 0;
+    display: flex;
+    height: 100vh;
+    padding: 1rem;
+}
+
+.sidebarmenu__list{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    flex-grow: 1;
+}
+
+.sidebarmenu__list-item{
+    font-size: var(--fs-link);
+    padding: var(--padding-tb) var(--padding-lr);
+    max-width: fit-content;
+    border-radius: var(--border-rad);
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    cursor: pointer;
+}
+
+.sidebarmenu__list-item:hover{
+    background-color: gray;
+}
+
+.sidebarmenu__link{
+    text-decoration: none;
+    color: currentColor;
+    width: fit-content;
+}
+
+.sidebarmenu__btn--user{
+    margin-top: auto;
+}
+
+.sidebarmenu__btn{
+    border: 0;
+    cursor: pointer;
+    background-color: transparent;
+    font-size: var(--fs-link);
+}
+
+.sidebarmenu__btn--chirp{
+    max-width: 10rem;
+    background-color: blue;
+    padding: var(--padding-tb) var(--padding-lr);
+    border-radius: var(--border-rad);
+    justify-content: center;
+}
+
+.sidebarmenu__btn--chirp:hover{
+    background-color: lightblue;
+}
+
+.sidebarmenu__user-pic{
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+}
