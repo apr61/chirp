@@ -1,0 +1,22 @@
+.tab-btn{
+    width: 50%;
+    border: 0;
+    background-color: transparent;
+    font-size: 1.1rem;
+    padding: 1rem;
+    cursor: pointer;
+    color: var(--sec-txt-clr);
+}
+
+.tab-btn:hover, .tab-btn--active:hover{
+    background-color: var(--hover-clr);
+}
+
+.tab-btn--active{
+    background-image: linear-gradient(var(--pri-clr), var(--pri-clr));
+    background-repeat: no-repeat;
+    background-size: 50% 3px;
+    background-position: bottom center;
+    color: var(--blk-txt-clr);
+    font-weight: 500;
+}

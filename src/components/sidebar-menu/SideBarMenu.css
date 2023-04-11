@@ -27,16 +27,21 @@
     gap: 1rem;
     align-items: center;
     cursor: pointer;
+    font-weight: 300;
 }
 
 .sidebarmenu__list-item:hover{
-    background-color: gray;
+    background-color: var(--hover-clr);
 }
 
 .sidebarmenu__link{
     text-decoration: none;
     color: currentColor;
     width: fit-content;
+}
+
+.sidebarmenu__link:active{
+    font-weight: 400;
 }
 
 .sidebarmenu__btn--user{
@@ -52,18 +57,24 @@
 
 .sidebarmenu__btn--chirp{
     max-width: 10rem;
-    background-color: blue;
+    background-color: var(--pri-clr);
     padding: var(--padding-tb) var(--padding-lr);
     border-radius: var(--border-rad);
     justify-content: center;
+    color: var(--txt-clr-white);
 }
 
 .sidebarmenu__btn--chirp:hover{
-    background-color: lightblue;
+    background-color: var(--pri-clr-hvr);
 }
 
 .sidebarmenu__user-pic{
     width: 2rem;
     height: 2rem;
     border-radius: 50%;
+}
+
+.sidebarmenu__icon{
+    font-weight: 400;
+    font-size: 1.35rem;
 }

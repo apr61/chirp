@@ -1,32 +1,65 @@
-*, *::after, *::before{
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap');
+
+*,
+*::after,
+*::before {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 
-body{
-    min-height: 100vh;
+:root {
+    --ff: 'Rubik', sans-serif;
+    --border-clr: hsl(0, 0%, 90%, .8);
+    --hover-clr: hsl(0, 0%, 95%, .7);
+    --border-white-clr: hsl(0, 0%, 100%);
+    --pri-txt-clr: hsl(200, 90%, 57%);
+    --pri-txt-hvr-clr: hsl(200, 90%, 77%);
+    --pri-rechirp-clr: hsl(150, 50%, 70%);
+    --pri-rechirp-hvr-clr: hsl(150, 50%, 30%);
+    --pri-like-clr: hsl(345, 87%, 90%);
+    --pri-like-hvr-clr: hsl(345, 87%, 80%);
+    --sec-txt-clr: hsl(0, 0%, 30%);
+    --blk-txt-clr: hsl(0, 0%, 0%);
+    --pri-clr: hsl(200, 90%, 47%);
+    --pri-clr-hvr: hsl(200, 90%, 42%);
+    --txt-clr-white: hsl(0, 0%, 100%);
 }
 
-img{
+body {
+    min-height: 100vh;
+    font-family: var(--ff);
+}
+
+input,
+textarea,
+button {
+    font-family: var(--ff);
+}
+
+img {
     max-width: 100%;
     width: 100%;
 }
-.mainPageLayout{
+
+.mainPageLayout {
     max-width: 80rem;
     margin-inline: auto;
     display: flex;
 }
 
-.mainPageLayout__container{
+.mainPageLayout__container {
     flex: 2;
-    border-left: 1px solid black;
-    border-right: 1px solid black;
+    border-left: 1px solid var(--border-clr);
+    border-right: 1px solid var(--border-clr);
+    min-height: 150vh;
+    height: 100%;
 }
 
-.main__header{
+.main__header {
     position: sticky;
     top: 0;
     background-color: hsl(0, 0%, 100%, .9);
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid var(--border-clr);
+    z-index: 99;
 }

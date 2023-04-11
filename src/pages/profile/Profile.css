@@ -7,7 +7,14 @@
 }
 
 .profile__title{
-    font-size: 1.5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.profile__chirps-count{
+    font-weight: 300;
+    font-size: .75rem;
+    color: var(--sec-txt-clr);
 }
 
 .profile__photo-container{
@@ -21,10 +28,64 @@
     width: 10rem;
     height: 10rem;
     border-radius: 50%;
-    border: .25rem solid white;
+    border: .25rem solid var(--border-white-clr);
 }
 
 .profile__details{
     margin-top: 5rem;
+    margin-bottom: 1rem;
     padding: 1rem;
+    position: relative;
+}
+
+.profile__btn-edit{
+    position: absolute;
+    right: 1.5rem;
+    top: -4rem;
+    border: 1px solid var(--border-clr);
+    background-color: transparent;
+    cursor: pointer;
+    padding: .5rem 1rem;
+    border-radius: 10rem;
+    font-weight: 500;
+    font-size: 1.01rem;
+}
+
+.profile__btn-edit:hover{
+    background-color: var(--hover-clr);
+}
+
+.profile__joined-date{
+    margin: 1rem 0;
+    display: flex;
+    gap: .25rem;
+    align-items: center;
+    font-weight: 300;
+    color: var(--sec-txt-clr);
+}
+
+.profile__follow-details{
+    display: flex;
+    gap: 1rem;
+}
+
+.profile__follow{
+    font-weight: 300;
+    color: var(--sec-txt-clr);
+}
+
+.profile__count{
+    font-weight: 500;
+    color: var(--blk-txt-clr);
+}
+
+.profile__tabs{
+    display: flex;
+    border-bottom: 1px solid var(--border-clr);
+}
+
+.profile__username{
+    margin-top: .25rem;
+    font-weight: 300;
+    color: var(--sec-txt-clr);
 }

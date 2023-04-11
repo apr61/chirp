@@ -3,9 +3,9 @@ import './ChirpActions.css'
 
 function ChirpActions({ Icon, stats, title }) {
     return (
-        <button className="chirp-actions-btn" title={title}>
-            <span className={'chirp-actions-btn__icon'}>
-                <Icon />
+        <button className={`chirp-actions-btn chirp-actions-btn--${title.toLowerCase()}`} title={title}>
+            <span className='chirp-actions-btn__icon-wrap'>
+                <Icon className='chirp-actions-btn__icon'/>
             </span>
             {stats}
         </button>

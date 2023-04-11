@@ -7,17 +7,35 @@
     display: flex;
     gap: .25rem;
     align-items: center;
+    color: var(--sec-txt-clr);
+    font-weight: 300;
 }
 
 .chirp-actions-btn:hover{
-    color: palevioletred;
+    color: var(--pri-txt-clr);
 }
 
-.chirp-actions-btn:hover .chirp-actions-btn__icon{
-    background-color: pink;
+.chirp-actions-btn--like:hover{
+    color: var(--pri-like-hvr-clr);
 }
 
-.chirp-actions-btn__icon{
+.chirp-actions-btn--rechirp:hover{
+    color: var(--pri-rechirp-hvr-clr);
+} 
+
+.chirp-actions-btn:hover .chirp-actions-btn__icon-wrap{
+    background-color: var(--pri-txt-hvr-clr);
+}
+
+.chirp-actions-btn--rechirp:hover .chirp-actions-btn__icon-wrap{
+    background-color: var(--pri-rechirp-clr);
+}
+
+.chirp-actions-btn--like:hover .chirp-actions-btn__icon-wrap{
+    background-color: var(--pri-like-clr);
+}
+
+.chirp-actions-btn__icon-wrap{
     border-radius: 50%;
     width: 2rem;
     height: 2rem;

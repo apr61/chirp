@@ -44,5 +44,5 @@
 }
 
 .modal__btn:hover{
-    background-color: gray;
+    background-color: var(--hover-clr);
 }

@@ -5,7 +5,7 @@
 
 .chirpForm__wrapper{
     display: flex;
-    gap: .5rem;
+    gap: 1rem;
 }
 
 .chirpForm__input{
@@ -20,8 +20,9 @@
 }
 
 .chirpForm__user-pic{
-    width: 2rem;
-    height: 2rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
 }
 
 .chirpForm__options{
@@ -32,10 +33,14 @@
 .chirpForm__btn{
     margin-left: auto;
     border: 0;
-    background-color: blue;
+    background-color: var(--pri-clr);
     cursor: pointer;
     padding: .5rem 1.5rem;
     border-radius: 3rem;
-    color: white;
+    color: var(--txt-clr-white);
     font-size: 1.12rem;
+}
+
+.chirpForm__btn:hover{
+    background-color: var(--pri-clr-hvr);
 }

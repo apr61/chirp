@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Profile.css'
 import {FaCalendar} from 'react-icons/fa'
+import TabBtn from '../../components/tab-btn/TabBtn'
 
 function Profile() {
+  const [activeTab, setActiveTab] = useState('Chirps')
+  function handleActiveTab(e){
+    setActiveTab(e.target.textContent);
+  }
   return (
     <div className="profile">
       <div className="main__header">
@@ -23,16 +28,16 @@ function Profile() {
             <p className="profile__username">@pradeep9</p>
             <p className="profile__joined-date"><FaCalendar /> Joined August 2022</p>
             <div className="profile__follow-details">
-              <p className="profile__follow">9 Following</p>
-              <p className="profile__follow">9 Followers</p>
+              <p className="profile__follow"><span className='profile__count'>9</span> Following</p>
+              <p className="profile__follow"><span className='profile__count'>9</span> Followers</p>
             </div>
           </div>
         </div>
         <div className="profile__tabs">
-          <button className="profile__tab">Chirps</button>
-          <button className="profile__tab">Replies</button>
-          <button className="profile__tab">Media</button>
-          <button className="profile__tab">Likes</button>
+          <TabBtn tabName={'Chirps'} handleActiveTab={handleActiveTab} active={activeTab === 'Chirps'}/>
+          <TabBtn tabName={'Replies'} handleActiveTab={handleActiveTab} active={activeTab === 'Replies'}/>
+          <TabBtn tabName={'Media'} handleActiveTab={handleActiveTab} active={activeTab === 'Media'}/>
+          <TabBtn tabName={'Likes'} handleActiveTab={handleActiveTab} active={activeTab === 'Likes'}/>
         </div>
       </div>
     </div>

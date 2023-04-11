@@ -1,12 +1,12 @@
 .singleChirp{
     padding: 1rem;
     display: flex;
-    gap: .5rem;
-    border-bottom: 1px solid black;
+    gap: 1rem;
+    border-bottom: 1px solid var(--border-clr);
 }
 
 .singleChirp:hover{
-    background-color: hsl(0, 0%, 0%, .1);
+    background-color: var(--hover-clr);
     cursor: pointer;
 }
 
@@ -34,4 +34,17 @@
 .singleChirp__options{
     display: flex;
     gap: 3rem;
+}
+
+.singleChirp__user-fullname{
+    font-weight: 500;
+}
+
+.singleChirp__username, .singleChirp__time{
+    font-weight: 300;
+    color: var(--sec-txt-clr);
+}
+
+.singleChirp__message{
+    font-weight: 400;
 }

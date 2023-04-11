@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './Home.css'
 import SingleChirp from '../../components/singleChirp/SingleChirp'
+import TabBtn from '../../components/tab-btn/TabBtn'
 
 function Home() {
     const [activeTab, setActiveTab] = useState('for you')
@@ -14,8 +15,8 @@ function Home() {
                     <h1 className="home__title">Home</h1>
                 </header>
                 <div className="home__tabs">
-                    <button className={activeTab === 'for you' ? 'home__tab-btn home__tab-btn--active' : "home__tab-btn"} onClick={handleActiveTab}>For You</button>
-                    <button className={activeTab === 'following' ? 'home__tab-btn home__tab-btn--active' : "home__tab-btn"} onClick={handleActiveTab}>Following</button>
+                    <TabBtn tabName={'For You'} handleActiveTab={handleActiveTab} active={activeTab === 'for you'}/>
+                    <TabBtn tabName={'Following'} handleActiveTab={handleActiveTab} active={activeTab === 'following'}/>
                 </div>
             </div>
             <div className="home__body">

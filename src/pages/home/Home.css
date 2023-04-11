@@ -8,29 +8,6 @@
 
 .home__title{
     font-size: 1.25rem;
-}
-
-.home__tabs{
-    width: 100%;
-}
-
-.home__tab-btn{
-    width: 50%;
-    border: 0;
-    background-color: transparent;
-    font-size: 1.1rem;
-    padding: 1rem;
-    cursor: pointer;
-}
-
-.home__tab-btn:hover, .home__tab-btn--active:hover{
-    background-color: gray;
-}
-
-.home__tab-btn--active{
-    background-image: linear-gradient(blue, blue);
-    background-repeat: no-repeat;
-    background-size: 50% 3px;
-    background-position: bottom center;
+    font-weight: 600;
 }
 
