@@ -1,0 +1,71 @@
+.singleChirpPage{
+    position: relative;
+}
+
+.singleChirpPage__header{
+    padding: 1rem 2rem;
+}
+
+.singleChirpPage__title{
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.singleChirpPage__chirp{
+    padding: 1rem;
+}
+
+.singleChirpPage__user-details{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.singleChirpPage__img{
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+}
+
+.singleChirpPage__user-fullname{
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+.singleChirpPage__username{
+    font-weight: 300;
+    color: var(--sec-txt-clr);
+}
+
+.singleChirpPage__chirp-msg{
+    margin: 1rem 0;
+}
+
+.singleChirpPage__chirp-time-stamp{
+    font-weight: 300;
+    color: var(--sec-txt-clr);
+}
+
+.singleChirpPage__chirp-stats{
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    border-top: 1px solid var(--border-clr);
+    border-bottom: 1px solid var(--border-clr);
+}
+
+.singleChirpPage__chirp-stat{
+    color: var(--sec-txt-clr);
+    font-weight: 400;
+}
+
+.singleChirpPage__chirp-stat-count{
+    color: var( --blk-txt-clr);
+    font-weight: 500;
+}
+
+.singleChirpPage__chirp-actions{
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid var(--border-clr);
+}

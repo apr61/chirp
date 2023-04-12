@@ -3,6 +3,8 @@
     display: flex;
     gap: 1rem;
     border-bottom: 1px solid var(--border-clr);
+    position: relative;
+    z-index: 1;
 }
 
 .singleChirp:hover{
@@ -34,6 +36,8 @@
 .singleChirp__options{
     display: flex;
     gap: 3rem;
+    position: relative;
+    z-index: 11;
 }
 
 .singleChirp__user-fullname{
@@ -47,4 +51,9 @@
 
 .singleChirp__message{
     font-weight: 400;
+}
+
+.singleChirp__link{
+    text-decoration: none;
+    color: currentColor;
 }

@@ -1,9 +1,13 @@
 import React from 'react'
 import './SingleChirp.css'
 import ChirpActions from '../chirpActions/ChirpActions'
-import {FaReply, FaRetweet, FaRegHeart, FaShareAlt} from 'react-icons/fa'
+import { FaReply, FaRetweet, FaRegHeart, FaShareAlt } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
 
-function SingleChirp({userFullname, username, time, message, likes, replies, rechirps}) {
+function SingleChirp({ userFullname, chirpId, username, time, message, likes, replies, rechirps }) {
+    function handleChirpAction(e) {
+
+    }
     return (
         <div className="singleChirp">
             <img src="https://pbs.twimg.com/profile_images/1562127188618801152/bp4EV_JS_400x400.jpg"
@@ -14,12 +18,14 @@ function SingleChirp({userFullname, username, time, message, likes, replies, rec
                     <p className="singleChirp__username">@{username}</p>
                     <p className="singleChirp__time"> - {time}h</p>
                 </div>
-                <p className="singleChirp__message">{message}</p>
+                <Link to={`${username}/status/${chirpId}`} className='singleChirp__link'>
+                    <p className="singleChirp__message">{message}</p>
+                </Link>
                 <div className="singleChirp__options">
-                    <ChirpActions Icon={FaReply} stats={replies} title={'Reply'}/>
-                    <ChirpActions Icon={FaRetweet} stats={rechirps} title={'Rechirp'}/>
-                    <ChirpActions Icon={FaRegHeart} stats={likes} title={'Like'}/>
-                    <ChirpActions Icon={FaShareAlt} title={'Share'}/>
+                    <ChirpActions Icon={FaReply} stats={replies} title={'Reply'} handleChirpAction={handleChirpAction} />
+                    <ChirpActions Icon={FaRetweet} stats={rechirps} title={'Rechirp'} handleChirpAction={handleChirpAction} />
+                    <ChirpActions Icon={FaRegHeart} stats={likes} title={'Like'} handleChirpAction={handleChirpAction} />
+                    <ChirpActions Icon={FaShareAlt} title={'Share'} handleChirpAction={handleChirpAction} />
                 </div>
             </div>
         </div>

@@ -5,7 +5,7 @@ import {AiOutlineSearch} from 'react-icons/ai'
 function Search() {
   return (
     <div className="search">
-        <AiOutlineSearch />
+        <AiOutlineSearch className='search__icon'/>
         <input type="search" id="search" placeholder='Search Chirp' className='search__input'/>
     </div>
   )

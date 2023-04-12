@@ -1,0 +1,19 @@
+.explore{
+    position: relative;
+}
+
+.explore__header{
+    padding: .5rem 2rem;
+    padding-bottom: 0;
+}
+
+.explore__title{
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.explore__tabs{
+    display: flex;
+    margin-top: .5rem;
+    justify-content: space-around;
+}

@@ -12,6 +12,7 @@
     --ff: 'Rubik', sans-serif;
     --border-clr: hsl(0, 0%, 90%, .8);
     --hover-clr: hsl(0, 0%, 95%, .7);
+    --inactive-clr: hsl(0, 0%, 95%, .8);
     --border-white-clr: hsl(0, 0%, 100%);
     --pri-txt-clr: hsl(200, 90%, 57%);
     --pri-txt-hvr-clr: hsl(200, 90%, 77%);
@@ -52,7 +53,7 @@ img {
     flex: 2;
     border-left: 1px solid var(--border-clr);
     border-right: 1px solid var(--border-clr);
-    min-height: 150vh;
+    min-height: 130vh;
     height: 100%;
 }
 

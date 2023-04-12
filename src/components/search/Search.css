@@ -2,23 +2,29 @@
     width: 100%;
     display: flex;
     align-items: center;
-    background-color: white;
+    background-color: var(--inactive-clr);
     border-radius: 10rem;
     padding: .75rem;
     gap: .5rem;
     font-size: 1.1rem;
-    border: 1px solid black;
 }
 
 .search:focus-within{
-    outline: 2px solid black;
+    outline: 1px solid var(--pri-txt-clr);
+    background-color: white;
 }
 
 .search__input{
     border: 0;
     width: 100%;
+    background-color: var(--inactive-clr);
 }
 
 .search__input:focus{
     outline: none;
+    background-color: white;
+}
+
+.search:focus-within .search__icon{
+    color: var(--pri-txt-clr);
 }

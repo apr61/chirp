@@ -1,0 +1,29 @@
+.bookmarks{
+    position: relative;
+}
+
+.bookmarks__header{
+    padding: 1rem 2rem;
+}
+
+.bookmarks__title{
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.bookmarks__username{
+    font-weight: 300;
+    color: var(--sec-txt-clr);
+}
+
+.bookmarks__empty{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+}
+
+.bookmarks__empty-title{
+    font-weight: 300;
+    color: var(--sec-txt-clr);
+}

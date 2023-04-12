@@ -8,6 +8,7 @@ import { CgMenuRound } from 'react-icons/cg'
 import { BsThreeDots } from 'react-icons/bs'
 import Modal from '../modal/Modal'
 import ComposeChirpForm from '../composeChirpForm/ComposeChirpForm'
+import Button from '../button/Button'
 
 function SideBarMenu() {
     const [composeChirp, setComposeChirp] = useState(false)
@@ -66,9 +67,7 @@ function SideBarMenu() {
                             More
                         </li>
                     </button>
-                    <button className="sidebarmenu__btn sidebarmenu__btn--chirp" onClick={handleComposeChirp}>
-                        Chirp
-                    </button>
+                    <Button text={'Chirp'} handleOnClick={handleComposeChirp}/>
                     <button className='sidebarmenu__btn sidebarmenu__btn--user'>
                         <li className="sidebarmenu__list-item">
                             <img src="https://pbs.twimg.com/profile_images/1562127188618801152/bp4EV_JS_400x400.jpg"

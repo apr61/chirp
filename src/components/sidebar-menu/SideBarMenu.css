@@ -40,8 +40,9 @@
     width: fit-content;
 }
 
-.sidebarmenu__link:active{
-    font-weight: 400;
+.sidebarmenu__link.active {
+    font-weight: 900;
+    color: red;
 }
 
 .sidebarmenu__btn--user{
@@ -53,19 +54,6 @@
     cursor: pointer;
     background-color: transparent;
     font-size: var(--fs-link);
-}
-
-.sidebarmenu__btn--chirp{
-    max-width: 10rem;
-    background-color: var(--pri-clr);
-    padding: var(--padding-tb) var(--padding-lr);
-    border-radius: var(--border-rad);
-    justify-content: center;
-    color: var(--txt-clr-white);
-}
-
-.sidebarmenu__btn--chirp:hover{
-    background-color: var(--pri-clr-hvr);
 }
 
 .sidebarmenu__user-pic{
