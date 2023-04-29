@@ -25,7 +25,7 @@ function SideBarMenu() {
                             Chirp
                         </li>
                     </Link>
-                    <Link className='sidebarmenu__link' to='/'>
+                    <Link className='sidebarmenu__link' to='/home'>
                         <li className="sidebarmenu__list-item">
                             <AiOutlineHome className='sidebarmenu__icon'/>
                             Home

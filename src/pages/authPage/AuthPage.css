@@ -1,0 +1,45 @@
+.authPage{
+    position: relative;
+}
+
+.authPage__nav{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.authPage__list{
+    list-style: none;
+    padding: 1rem;    
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    background-color: var(--pri-clr);
+}
+
+.authPage__btn{
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+    color: var(--txt-clr-white);
+}
+
+.authPage__list-item{
+    padding: .75rem 2rem;
+    border: 1px solid var(--hover-clr);
+    border-radius: 10rem;
+}
+
+.authPage__list-item:hover{
+    background-color: var(--pri-clr-hvr);
+}
+
+.authPage__list-item--signup{
+    background-color: var(--txt-clr-white);
+    color: var(--blk-txt-clr);
+}
+
+.authPage__list-item--signup:hover{
+    background-color: var(--hover-clr);
+}

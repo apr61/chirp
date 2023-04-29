@@ -3,9 +3,10 @@
     cursor: pointer;
     background-color: transparent;
     font-size: 1.25rem;
-    max-width: 12rem;
+    max-width: 15rem;
+    width: 100%;
     background-color: var(--pri-clr);
-    padding: 1rem;
+    padding: 1rem 1.5rem;
     border-radius: 5rem;
     justify-content: center;
     color: var(--txt-clr-white);
