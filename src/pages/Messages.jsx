@@ -1,4 +1,3 @@
-import Header from '../components/Header'
 import SideNavbar from '../components/SideNavbar'
 import Button from '../components/Button'
 import {BiMessageSquareAdd} from 'react-icons/bi'
@@ -6,7 +5,7 @@ import {BiMessageSquareAdd} from 'react-icons/bi'
 export default function Messages(){
   return(
     <>
-        <main className="max-w-5xl mx-auto flex min-h-screen">
+        <main className="max-w-6xl mx-auto flex min-h-screen">
           <SideNavbar />
           <div className="flex-1 flex border-x border-slate-300">
                 <div className='basis-1/3 border-r border-gray-300'>

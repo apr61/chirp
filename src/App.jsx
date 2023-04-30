@@ -12,6 +12,8 @@ import MainPage from './pages/MainPage'
 import SignUp from './pages/SignUp'
 import SignUpProvider from './context/SignUpUserContext'
 import ContextLayout from './Layouts/ContextLayout'
+import AuthProvider from './context/AuthContext'
+import RequireAuthLayout from './layouts/RequireAuthLayout'
 
 export const user = {
 	fullName: "Nico Robin",
@@ -25,19 +27,23 @@ export const user = {
 export default function App() {
 	return (
 		<Routes>
-			<Route path='/' element={<MainPage />} />
 			<Route element={<ContextLayout provider={SignUpProvider} />}>
+				<Route path='/' element={<MainPage />} />
 				<Route path='/signup' element={<SignUp />} />
 			</Route>
-			<Route element={<MainLayout />}>
-				<Route path='/home' element={<Home />} />
-				<Route path='/explore' element={<Explore />} />
-				<Route path='/notifications' element={<Notifications />} />
-				<Route path='/profile' element={<Profile />} />
-				<Route path='/bookmarks' element={<Bookmarks />} />
-				<Route path='/:username/status/:chirpId' element={<SingleChirpPage />} />
+			<Route element={<ContextLayout provider={AuthProvider} />}>
+				<Route element={<RequireAuthLayout />}>
+					<Route element={<MainLayout />}>
+						<Route path='/home' element={<Home />} />
+						<Route path='/explore' element={<Explore />} />
+						<Route path='/notifications' element={<Notifications />} />
+						<Route path='/profile' element={<Profile />} />
+						<Route path='/bookmarks' element={<Bookmarks />} />
+						<Route path='/:username/status/:chirpId' element={<SingleChirpPage />} />
+					</Route>
+					<Route path='/messages' element={<Messages />} />
+				</Route>
 			</Route>
-			<Route path='/messages' element={<Messages />} />
 		</Routes>
 	)
 }

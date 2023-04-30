@@ -4,13 +4,16 @@ import SignupUserDetails from '../components/SignupUserDetails'
 import SignupUserPassword from '../components/SignupUserPassword'
 import Button from '../components/Button'
 import useMultiStepForm from '../hooks/useMultiStepForm'
+import useSignUpContext from '../hooks/useSignUpContext'
 
 function SignUp() {
     const { step, next, back, steps, currentStepIndex, isFirstStep, isLastStep } = useMultiStepForm([<SignupUserDetails />, <SignupUserPassword />])
+    const {signUpUser, loading} = useSignUpContext()
     function handleOnSubmit(e) {
         e.preventDefault()
         if(!isLastStep) return next()
         // TODO: SignUp functionality
+        signUpUser()
     }
     return (
         <main className="flex min-h-screen items-center">
@@ -26,7 +29,7 @@ function SignUp() {
                                 <button type='button' onClick={back} className='border py-2 px-4 rounded-md border-slate-800 hover:bg-slate-200'>Back</button>
                             )
                         }
-                        <Button rounded={'rounded-md'}>{isLastStep ? 'Sign Up' : 'Next'}</Button>
+                        <Button loading={loading} rounded={'rounded-md'}>{isLastStep ? 'Sign Up' : 'Next'}</Button>
                     </div>
                 </form>
                 <p className="text-slate-700 font-medium">Already have an account ? Go <Link to='/' className="text-teal-500">here</Link></p>
