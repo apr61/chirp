@@ -3,6 +3,7 @@ import { auth } from "../FirebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
 import { getUserDetails, logOut } from "../services/auth";
 import { useNavigate } from "react-router-dom";
+import { getChiprsBasedOnUserId } from "../services/chirps";
 
 export const AuthContext = createContext()
 
@@ -20,6 +21,7 @@ export default function AuthProvider({ children }){
                 .then((userDetails) => {
                     setCurrentUserDetails(userDetails)
                 })
+                getChiprsBasedOnUserId(user.uid)
             }catch(err){
                 console.log(err)
             }finally{

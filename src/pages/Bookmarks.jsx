@@ -1,15 +1,16 @@
 import Header from '../components/Header'
-import {user} from '../App'
+import useAuthContext from '../hooks/useAuthContext'
 
-export default function Bookmarks(){
-  return(
+export default function Bookmarks() {
+  const { currentUserDetails } = useAuthContext()
+  return (
     <>
-    <Header>
+      <Header>
         <div className="py-2 px-4 flex flex-col">
-            <h1 className="font-bold text-xl">Bookmarks</h1>
-            <p className="text-slate-500">@{user.username}</p>
+          <h1 className="font-bold text-xl">Bookmarks</h1>
+          <p className="text-slate-500">@{currentUserDetails.username}</p>
         </div>
-    </Header>
+      </Header>
     </>
   )
 }

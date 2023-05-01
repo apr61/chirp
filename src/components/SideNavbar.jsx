@@ -73,7 +73,7 @@ export default function SideNavBar() {
 				</ul>
 			</aside>
 			<Modal isOpen={openComposeChirp} handleModalState={handleComposeChirp}>
-				<ComposeChirpForm />
+				<ComposeChirpForm closeModal={handleComposeChirp}/>
 			</Modal>
 		</>
 	)
