@@ -11,6 +11,7 @@ const signUpInitialValue = {
     dob: "",
     password: "",
     cpassword: "",
+    username: ""
 }
 
 export default function SignUpProvider({children}){
@@ -24,7 +25,7 @@ export default function SignUpProvider({children}){
     function signUpUser(){
         try{
             setLoading(true)
-            signUp(signUpState.email, signUpState.password, signUpState.name, signUpState.dob)
+            signUp(signUpState.email, signUpState.password, signUpState.name, signUpState.dob, signUpState.username)
             .then(() => {
                 navigate('/home')
             }).catch(err => console.log(err))

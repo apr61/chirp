@@ -27,6 +27,11 @@ export function signUpReducer(state, action) {
                 ...state,
                 cpassword: action.payload
             }
+        case 'USERNAME':
+            return {
+                ...state,
+                username: action.payload
+            }
         default: return state
     }
 }

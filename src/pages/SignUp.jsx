@@ -5,9 +5,10 @@ import SignupUserPassword from '../components/SignupUserPassword'
 import Button from '../components/Button'
 import useMultiStepForm from '../hooks/useMultiStepForm'
 import useSignUpContext from '../hooks/useSignUpContext'
+import SignupUserUsername from '../components/SignupUserUsername'
 
 function SignUp() {
-    const { step, next, back, steps, currentStepIndex, isFirstStep, isLastStep } = useMultiStepForm([<SignupUserDetails />, <SignupUserPassword />])
+    const { step, next, back, steps, currentStepIndex, isFirstStep, isLastStep } = useMultiStepForm([<SignupUserDetails />, <SignupUserPassword />, <SignupUserUsername />])
     const {signUpUser, loading} = useSignUpContext()
     function handleOnSubmit(e) {
         e.preventDefault()

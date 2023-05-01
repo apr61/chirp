@@ -1,17 +1,31 @@
 import { createContext, useEffect, useState } from "react";
 import { auth } from "../FirebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
-import { logOut } from "../services/auth";
+import { getUserDetails, logOut } from "../services/auth";
 import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext()
 
 export default function AuthProvider({ children }){
     const [currentUser, setCurrentUser] = useState({})
+    const [currentUserDetails, setCurrentUserDetails] = useState({})
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, user => setCurrentUser(user))
+        const unsubscribe = onAuthStateChanged(auth, user => {
+            setCurrentUser(user)
+            try{
+                setLoading(true)
+                getUserDetails(user.uid)
+                .then((userDetails) => {
+                    setCurrentUserDetails(userDetails)
+                })
+            }catch(err){
+                console.log(err)
+            }finally{
+                setLoading(false)
+            }
+        })
         return unsubscribe
     }, [])
     function logOutUser(){
@@ -28,7 +42,7 @@ export default function AuthProvider({ children }){
         }
     }
     return (
-        <AuthContext.Provider value={{currentUser, loading, logOutUser}}>
+        <AuthContext.Provider value={{currentUser, loading, logOutUser, currentUserDetails}}>
             {children}
         </AuthContext.Provider>
     )

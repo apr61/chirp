@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import { FiHome, FiHash, FiMessageSquare, FiBell, FiMoreHorizontal, FiBookmark, FiUser } from 'react-icons/fi'
 import Button from './Button'
-import { user } from '../App'
 import Modal from './Modal'
 import ComposeChirpForm from './ComposeChirpForm'
 import useAuthContext from '../hooks/useAuthContext'
@@ -18,16 +17,16 @@ const linksWithText = [
 
 export default function SideNavBar() {
 	const [openComposeChirp, setOpenComposeChirp] = useState(false)
-	const [openUserOptions,  setOpenUserOptions] = useState(false)
-	const {loading, logOutUser} = useAuthContext()
+	const [openUserOptions, setOpenUserOptions] = useState(false)
+	const { loading, logOutUser, currentUserDetails } = useAuthContext()
 
 	function handleComposeChirp() {
 		setOpenComposeChirp(!openComposeChirp)
 	}
-	function handleUserOptions(){
+	function handleUserOptions() {
 		setOpenUserOptions(!openUserOptions)
 	}
-	function handleLogOut(){
+	function handleLogOut() {
 		logOutUser()
 	}
 	return (
@@ -52,18 +51,24 @@ export default function SideNavBar() {
 						</button>
 					</li>
 					<Button onClick={handleComposeChirp}>Chirp</Button>
-					<li className="border-gray-200 rounded-full text-center hover:bg-gray-300 w-48 mt-auto focus:ring-1">
-						<button className="flex gap-2 items-center justify-between w-full" onClick={handleUserOptions}>
-							<img src={user.profileImg} className="w-12 h-12 object-cover rounded-full" loading='lazy' alt='u' />
-							<div className="flex flex-col items-start">
-								<h3 className="font-bold">{user.fullName}</h3>
-								<p className="text-slate-700">@{user.username}</p>
-							</div>
-							<div className="mr-2"><FiMoreHorizontal /></div>
-						</button>
-					</li>
-					<div>
-						<button onClick={handleLogOut}>{loading ? 'Loading...' : 'Logout'}</button>
+					<div className='mt-auto relative'>
+						<li className="border-gray-200 rounded-full text-center hover:bg-gray-100 w-48 focus:ring-1 relative p-2">
+							<button className="flex gap-2 items-center justify-between w-full" onClick={handleUserOptions}>
+								<img src={currentUserDetails.profileUrl} className="w-12 h-12 object-cover rounded-full" loading='lazy' alt='u' />
+								<div className="flex flex-col items-start">
+									<h3 className="font-bold">{currentUserDetails.name}</h3>
+									<p className="text-slate-700">@{currentUserDetails.username}</p>
+								</div>
+								<div className=''><FiMoreHorizontal /></div>
+							</button>
+						</li>
+						{
+							openUserOptions && (
+								<div className='absolute -top-20 w-full border border-gray-300 rounded-xl py-4 shadow-md'>
+									<button onClick={handleLogOut} className='w-full hover:bg-gray-100 p-2 bg-white'>{loading ? 'Loading...' : 'Logout'}</button>
+								</div>
+							)
+						}
 					</div>
 				</ul>
 			</aside>
