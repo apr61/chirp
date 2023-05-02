@@ -31,8 +31,8 @@ export default function SideNavBar() {
 	}
 	return (
 		<>
-			<aside className="w-64 sticky top-0 h-screen overflow-x-auto">
-				<ul className="flex flex-col gap-4 p-8 h-screen">
+			<aside className="sticky top-0 h-screen overflow-x-auto">
+				<ul className="flex flex-col gap-4 p-4 h-screen">
 					<li>
 						<Link to='/'>Logo</Link>
 					</li>
@@ -51,15 +51,15 @@ export default function SideNavBar() {
 						</button>
 					</li>
 					<Button onClick={handleComposeChirp}>Chirp</Button>
-					<div className='mt-auto relative'>
-						<li className="border-gray-200 rounded-full text-center hover:bg-gray-100 w-48 focus:ring-1 relative p-2">
-							<button className="flex gap-2 items-center justify-between w-full" onClick={handleUserOptions}>
-								<img src={currentUserDetails.profileUrl} className="w-12 h-12 object-cover rounded-full" loading='lazy' alt='u' />
-								<div className="flex flex-col items-start">
-									<h3 className="font-bold">{currentUserDetails.name}</h3>
+					<div className='mt-auto relative w-full'>
+						<li className="border-gray-200 rounded-full hover:bg-gray-100 focus:ring-1 relative p-2">
+							<button className="flex gap-2 items-center justify-between" onClick={handleUserOptions}>
+								<img src={currentUserDetails.profileUrl} className="w-12 h-12 object-cover rounded-full" loading='lazy' alt={currentUserDetails.name} />
+								<div className="flex flex-col items-start text-start">
+									<h3 className="font-bold whitespace-nowrap overflow-hidden text-ellipsis w-36">{currentUserDetails.name}</h3>
 									<p className="text-slate-700">@{currentUserDetails.username}</p>
 								</div>
-								<div className=''><FiMoreHorizontal /></div>
+								<span><FiMoreHorizontal /></span>
 							</button>
 						</li>
 						{
