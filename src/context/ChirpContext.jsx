@@ -6,6 +6,7 @@ import {
   getAllChirps,
   getChiprsBasedOnUserId,
   toggleLikeChirp,
+  toggleRechirpChirp,
 } from "../services/chirps";
 
 export const ChirpContext = createContext();
@@ -57,6 +58,25 @@ export default function ChirpProvider({ children }) {
       );
     });
   }
+  function chirpRechirpLoacalAndServer(chirpId, userId, isRechirped) {
+    toggleRechirpChirp(chirpId, userId, isRechirped).then(() =>
+      setAllChirps((oldChirps) =>
+        oldChirps.map((chirp) => {
+          if (chirp.chirpId === chirpId) {
+            if (isRechirped) {
+              return {
+                ...chirp,
+                rechirps: chirp.rechirps.filter((uid) => uid !== userId),
+              };
+            }
+            return { ...chirp, rechirps: [userId, ...chirp.rechirps] };
+          } else {
+            return chirp;
+          }
+        })
+      )
+    );
+  }
   return (
     <ChirpContext.Provider
       value={{
@@ -66,6 +86,7 @@ export default function ChirpProvider({ children }) {
         createLocalAndServerChirp,
         deleteLocalAndServerChirp,
         chirpLikeLocalAndServer,
+        chirpRechirpLoacalAndServer,
       }}
     >
       {children}

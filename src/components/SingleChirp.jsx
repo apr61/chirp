@@ -11,16 +11,24 @@ import useChirpContext from "../hooks/useChirpContext";
 
 function SingleChirp({ chirp }) {
   const { currentUserDetails } = useAuthContext();
-  const { deleteLocalAndServerChirp, chirpLikeLocalAndServer } =
-    useChirpContext();
+  const {
+    deleteLocalAndServerChirp,
+    chirpLikeLocalAndServer,
+    chirpRechirpLoacalAndServer,
+  } = useChirpContext();
   const { uid, name, username, profileUrl } = chirp.user;
   const { chirpId, message, comments, rechirps, likes, postedAt } = chirp;
   const isLiked = likes.indexOf(currentUserDetails.uid) !== -1;
+  const isRechirped = rechirps.indexOf(currentUserDetails.uid) !== -1;
+
   function handleChirpDelete() {
     deleteLocalAndServerChirp(chirpId);
   }
   function handleChirpLike() {
     chirpLikeLocalAndServer(chirpId, currentUserDetails.uid, isLiked);
+  }
+  function handleReChirp() {
+    chirpRechirpLoacalAndServer(chirpId, currentUserDetails.uid, isRechirped);
   }
   return (
     <article className="flex gap-4 p-2 items-start border-b border-gray-300 hover:bg-gray-100">
@@ -36,7 +44,7 @@ function SingleChirp({ chirp }) {
         <p>{message}</p>
         <div className="flex items-center gap-8 mt-2">
           <button
-            title="Comment"
+            title="Reply"
             className="group flex items-center gap-2 hover:text-teal-500"
           >
             <span className="group-hover:bg-teal-200 rounded-full p-2">
@@ -45,8 +53,16 @@ function SingleChirp({ chirp }) {
             {comments.length}
           </button>
           <button
-            title="Rechirp"
-            className="group flex items-center gap-4 hover:text-green-500"
+            title={
+              currentUserDetails.uid === uid
+                ? "You can't rechirp your own chirp"
+                : "Rechirp"
+            }
+            className={`group flex items-center gap-4 hover:text-green-500 disabled:cursor-not-allowed disabled:text-gray-300 ${
+              isRechirped && "text-green-500"
+            }`}
+            onClick={handleReChirp}
+            disabled={currentUserDetails.uid === uid}
           >
             <span className="group-hover:bg-green-200 rounded-full p-2">
               <FaRetweet />

@@ -66,3 +66,10 @@ export const toggleLikeChirp = async (chirpId, userId, isLiked) => {
     likes: !isLiked ? arrayUnion(userId) : arrayRemove(userId),
   });
 };
+
+export const toggleRechirpChirp = async (chirpId, userId, isRechirped) => {
+  const docRef = doc(db, "chirps", chirpId);
+  return await updateDoc(docRef, {
+    rechirps: isRechirped ? arrayRemove(userId) : arrayUnion(userId),
+  });
+};
