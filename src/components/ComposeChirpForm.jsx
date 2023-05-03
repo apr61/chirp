@@ -2,7 +2,6 @@ import { useState } from "react";
 import useAuthContext from "../hooks/useAuthContext";
 import useChirpContext from "../hooks/useChirpContext";
 import Button from "./Button";
-import { useNavigate } from "react-router-dom";
 import { serverTimestamp } from "firebase/firestore";
 
 function ComposeChirpForm({
@@ -14,7 +13,6 @@ function ComposeChirpForm({
 }) {
   const { currentUserDetails } = useAuthContext();
   const { createLocalAndServerChirp } = useChirpContext();
-  const navigate = useNavigate();
   const [message, setMessage] = useState("");
 
   function handleTextAreaHeight(e) {
@@ -38,7 +36,6 @@ function ComposeChirpForm({
     createLocalAndServerChirp(newChirp);
     setMessage("");
     closeModal();
-    navigate("/home");
   }
   return (
     <div className="mx-4 mt-4">

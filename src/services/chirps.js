@@ -5,6 +5,7 @@ import {
   collection,
   deleteDoc,
   doc,
+  getDoc,
   getDocs,
   query,
   serverTimestamp,
@@ -56,4 +57,10 @@ export const toggleRechirpChirp = async (chirpId, userId, isRechirped) => {
   return await updateDoc(docRef, {
     rechirps: isRechirped ? arrayRemove(userId) : arrayUnion(userId),
   });
+};
+
+export const getChirpById = async (chirpId) => {
+  const docRef = doc(db, "chirps", chirpId);
+  const docSnap = await getDoc(docRef);
+  return { chirpId: chirpId, ...docSnap.data() };
 };

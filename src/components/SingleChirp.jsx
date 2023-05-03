@@ -12,6 +12,7 @@ import useChirpContext from "../hooks/useChirpContext";
 import Modal from "./Modal";
 import ComposeChirpForm from "./ComposeChirpForm";
 import ReplyingChirp from "./ReplyingChirp";
+import { Link } from "react-router-dom";
 
 function SingleChirp({ chirp }) {
   const [openChirpForm, setOpenChirpForm] = useState(false);
@@ -59,8 +60,9 @@ function SingleChirp({ chirp }) {
               </span>
             </p>
           )}
-
-          <p>{message}</p>
+          <Link to={`/${username}/status/${chirpId}`}>
+            <p>{message}</p>
+          </Link>
           <div className="flex items-center gap-8 mt-2">
             <button
               title="Reply"

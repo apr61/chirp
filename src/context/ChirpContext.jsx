@@ -5,6 +5,7 @@ import {
   deleteChirpById,
   getAllChirps,
   getChiprsBasedOnUserId,
+  getChirpById,
   toggleLikeChirp,
   toggleRechirpChirp,
 } from "../services/chirps";
@@ -12,17 +13,9 @@ import {
 export const ChirpContext = createContext();
 
 export default function ChirpProvider({ children }) {
-  const { currentUserDetails } = useAuthContext();
-  const [loggedInUserChirps, setLoggedInUserChirps] = useState([]);
   const [allChirps, setAllChirps] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  useEffect(() => {
-    if (currentUserDetails.uid) {
-      getChiprsBasedOnUserId(currentUserDetails.uid).then((chirps) =>
-        setLoggedInUserChirps(chirps)
-      );
-    }
-  }, [currentUserDetails, allChirps]);
+
   useEffect(() => {
     setIsLoading(true);
     getAllChirps()
@@ -89,10 +82,10 @@ export default function ChirpProvider({ children }) {
       )
     );
   }
+
   return (
     <ChirpContext.Provider
       value={{
-        loggedInUserChirps,
         rootChirps: chirpsByParentId[null],
         getChirpReplies,
         isLoading,

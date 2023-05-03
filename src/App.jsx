@@ -33,7 +33,7 @@ export default function App() {
               <Route path="/profile" element={<Profile />} />
               <Route path="/bookmarks" element={<Bookmarks />} />
               <Route
-                path="/:username/status/:chirpId"
+                path="/:username/status/:cid"
                 element={<SingleChirpPage />}
               />
             </Route>
