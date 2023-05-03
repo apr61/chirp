@@ -13,27 +13,11 @@ import {
 } from "firebase/firestore";
 import { db } from "../FirebaseConfig";
 
-export const createNewChirp = async (user, message) => {
-  const docRef = await addDoc(collection(db, "chirps"), {
-    user: user,
-    message: message,
-    postedAt: serverTimestamp(),
-    likes: [],
-    comments: [],
-    rechirps: [],
-    images: [],
-    videos: [],
-  });
+export const createNewChirp = async (newChirp) => {
+  const docRef = await addDoc(collection(db, "chirps"), newChirp);
   return {
     chirpId: docRef.id,
-    user: user,
-    message: message,
-    postedAt: serverTimestamp(),
-    likes: [],
-    comments: [],
-    rechirps: [],
-    images: [],
-    videos: [],
+    ...newChirp,
   };
 };
 

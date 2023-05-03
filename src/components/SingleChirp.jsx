@@ -9,22 +9,24 @@ import {
 } from "react-icons/fa";
 import useAuthContext from "../hooks/useAuthContext";
 import useChirpContext from "../hooks/useChirpContext";
-import Modal from './Modal'
-import ComposeChirpForm from './ComposeChirpForm'
+import Modal from "./Modal";
+import ComposeChirpForm from "./ComposeChirpForm";
+import ReplyingChirp from "./ReplyingChirp";
 
 function SingleChirp({ chirp }) {
-  const [openChirpForm, setOpenChirpForm] = useState(false)
+  const [openChirpForm, setOpenChirpForm] = useState(false);
   const { currentUserDetails } = useAuthContext();
   const {
     deleteLocalAndServerChirp,
     chirpLikeLocalAndServer,
     chirpRechirpLoacalAndServer,
+    getChirpReplies,
   } = useChirpContext();
   const { uid, name, username, profileUrl } = chirp.user;
-  const { chirpId, message, comments, rechirps, likes, postedAt } = chirp;
+  const { chirpId, message, rechirps, likes, postedAt, replyingTo } = chirp;
   const isLiked = likes.indexOf(currentUserDetails.uid) !== -1;
   const isRechirped = rechirps.indexOf(currentUserDetails.uid) !== -1;
-
+  const replies = getChirpReplies(chirpId);
   function handleChirpDelete() {
     deleteLocalAndServerChirp(chirpId);
   }
@@ -35,7 +37,7 @@ function SingleChirp({ chirp }) {
     chirpRechirpLoacalAndServer(chirpId, currentUserDetails.uid, isRechirped);
   }
   function handleChirpReply() {
-    setOpenChirpForm(!openChirpForm)
+    setOpenChirpForm(!openChirpForm);
   }
   return (
     <>
@@ -47,8 +49,17 @@ function SingleChirp({ chirp }) {
           <div className="flex items-center gap-2">
             <h3 className="font-bold">{name}</h3>
             <p className="text-slate-500">@{username}</p>
-            <p className="text-slate-500"> - { }</p>
+            <p className="text-slate-500"> - {}</p>
           </div>
+          {replyingTo && (
+            <p className="text-gray-500">
+              Replying to
+              <span className="text-teal-500 ml-1 font-bold">
+                @{replyingTo}
+              </span>
+            </p>
+          )}
+
           <p>{message}</p>
           <div className="flex items-center gap-8 mt-2">
             <button
@@ -59,7 +70,7 @@ function SingleChirp({ chirp }) {
               <span className="group-hover:bg-teal-200 rounded-full p-2">
                 <FaRegComment />
               </span>
-              {comments.length}
+              {(replies != null && replies.length) || 0}
             </button>
             <button
               title={
@@ -67,8 +78,9 @@ function SingleChirp({ chirp }) {
                   ? "You can't rechirp your own chirp"
                   : "Rechirp"
               }
-              className={`group flex items-center gap-4 hover:text-green-500 disabled:cursor-not-allowed disabled:text-gray-300 ${isRechirped && "text-green-500"
-                }`}
+              className={`group flex items-center gap-4 hover:text-green-500 disabled:cursor-not-allowed disabled:text-gray-300 ${
+                isRechirped && "text-green-500"
+              }`}
               onClick={handleReChirp}
               disabled={currentUserDetails.uid === uid}
             >
@@ -79,8 +91,9 @@ function SingleChirp({ chirp }) {
             </button>
             <button
               title="Like"
-              className={`group flex items-center gap-4 hover:text-pink-500 ${isLiked && "text-pink-500"
-                }`}
+              className={`group flex items-center gap-4 hover:text-pink-500 ${
+                isLiked && "text-pink-500"
+              }`}
               onClick={handleChirpLike}
             >
               <span className="group-hover:bg-pink-200 rounded-full p-2">
@@ -112,7 +125,14 @@ function SingleChirp({ chirp }) {
         </div>
         {
           <Modal isOpen={openChirpForm} handleModalState={handleChirpReply}>
-            <ComposeChirpForm />
+            <ComposeChirpForm
+              closeModal={handleChirpReply}
+              isRepliying={true}
+              parentId={chirpId}
+              replyingTo={username}
+            >
+              <ReplyingChirp chirp={chirp} />
+            </ComposeChirpForm>
           </Modal>
         }
       </article>

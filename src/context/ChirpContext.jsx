@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useMemo, useState } from "react";
 import useAuthContext from "../hooks/useAuthContext";
 import {
   createNewChirp,
@@ -31,9 +31,21 @@ export default function ChirpProvider({ children }) {
         setIsLoading(false);
       });
   }, []);
-  async function createLocalAndServerChirp(user, message) {
-    const newChirp = await createNewChirp(user, message);
-    setAllChirps((oldChirps) => [newChirp, ...oldChirps]);
+  const chirpsByParentId = useMemo(() => {
+    if (allChirps == null) return [];
+    const group = {};
+    allChirps.forEach((chirp) => {
+      group[chirp.parentId] ||= [];
+      group[chirp.parentId].push(chirp);
+    });
+    return group;
+  }, [allChirps]);
+  function getChirpReplies(parentId) {
+    return chirpsByParentId[parentId];
+  }
+  async function createLocalAndServerChirp(newChirp) {
+    const newChirpCreated = await createNewChirp(newChirp);
+    setAllChirps((oldChirps) => [newChirpCreated, ...oldChirps]);
   }
   function deleteLocalAndServerChirp(chirpId) {
     deleteChirpById(chirpId);
@@ -81,7 +93,8 @@ export default function ChirpProvider({ children }) {
     <ChirpContext.Provider
       value={{
         loggedInUserChirps,
-        allChirps,
+        rootChirps: chirpsByParentId[null],
+        getChirpReplies,
         isLoading,
         createLocalAndServerChirp,
         deleteLocalAndServerChirp,
