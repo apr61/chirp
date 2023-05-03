@@ -97,10 +97,10 @@ export default function SideNavBar() {
               </button>
             </li>
             {openUserOptions && (
-              <div className="absolute -top-20 w-full border border-gray-300 rounded-xl py-4 shadow-md">
+              <div className="absolute -top-20 w-full border border-gray-300 rounded-xl py-4 shadow-md bg-white">
                 <button
                   onClick={handleLogOut}
-                  className="w-full hover:bg-gray-100 p-2 bg-white"
+                  className="w-full hover:bg-gray-200 p-2 bg-white"
                 >
                   {loading ? "Loading..." : "Logout"}
                 </button>

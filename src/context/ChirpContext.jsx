@@ -1,11 +1,8 @@
 import { createContext, useEffect, useMemo, useState } from "react";
-import useAuthContext from "../hooks/useAuthContext";
 import {
   createNewChirp,
   deleteChirpById,
   getAllChirps,
-  getChiprsBasedOnUserId,
-  getChirpById,
   toggleLikeChirp,
   toggleRechirpChirp,
 } from "../services/chirps";
