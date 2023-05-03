@@ -6,10 +6,13 @@ import useAuthContext from "../hooks/useAuthContext";
 import SingleChirp from "../components/SingleChirp";
 import { getChiprsBasedOnUserId } from "../services/chirps";
 import { useAsync } from "../hooks/useAsync";
+import { useNavigate } from "react-router-dom";
+import { FaArrowLeft } from "react-icons/fa";
 
 export default function Profile() {
   const [activeTab, setActiveTab] = useState("Chirps");
   const { currentUserDetails } = useAuthContext();
+  const navigate = useNavigate();
   const userId = currentUserDetails.uid != null && currentUserDetails.uid;
   const { loading, value: chirps } = useAsync(() =>
     getChiprsBasedOnUserId(userId)
@@ -17,13 +20,24 @@ export default function Profile() {
   function handleActiveTab(e) {
     setActiveTab(e.target.textContent);
   }
+  function navBack() {
+    navigate(-1);
+  }
   if (loading) return "Loading...";
   return (
     <>
       <Header>
-        <div className="flex flex-col px-4 py-2">
-          <h1 className="text-xl font-bold">{currentUserDetails.name}</h1>
-          <p className="text-slate-500">{chirps.length} Chirps</p>
+        <div className="flex gap-4 px-4 py-2 items-center">
+          <button
+            onClick={navBack}
+            className="rounded-full w-8 h-8 hover:bg-gray-200 flex items-center justify-center"
+          >
+            <FaArrowLeft />
+          </button>
+          <div className="flex flex-col">
+            <h1 className="text-xl font-bold">{currentUserDetails.name}</h1>
+            <p className="text-slate-500">{chirps.length} Chirps</p>
+          </div>
         </div>
       </Header>
       <div>
@@ -42,7 +56,7 @@ export default function Profile() {
               loading="lazy"
             />
           </div>
-          <button className="py-2 px-4 border border-slate-300 rounded-full absolute -bottom-16 right-8 font-bold hover:bg-slate-300 focus:outline-slate-500">
+          <button className="py-2 px-4 border border-slate-300 rounded-full absolute -bottom-16 right-8 font-bold hover:bg-gray-200 focus:outline-slate-500">
             Edit Profile
           </button>
         </div>
@@ -70,7 +84,7 @@ export default function Profile() {
             </p>
           </div>
         </div>
-        <div className="flex mt-4 border-b border-slate-300">
+        <div className="flex mt-4 border-b border-slate-100">
           <TabBtn
             text="Chirps"
             activeTab={activeTab}

@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   FaHeart,
   FaRegHeart,
   FaShare,
   FaRegComment,
   FaRetweet,
+  FaArrowLeft,
 } from "react-icons/fa";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ComposeChirpForm from "../components/ComposeChirpForm";
 import Header from "../components/Header";
+import IconBtn from "../components/IconBtn";
 import Modal from "../components/Modal";
 import ReplyingChirp from "../components/ReplyingChirp";
 import SingleChirp from "../components/SingleChirp";
@@ -17,10 +19,11 @@ import useAuthContext from "../hooks/useAuthContext";
 import useChirpContext from "../hooks/useChirpContext";
 import { getChirpById } from "../services/chirps";
 
-function SingleChirpPage() {
+function ChirpThreadPage() {
   const { cid } = useParams();
   const { currentUserDetails } = useAuthContext();
   const [openChirpForm, setOpenChirpForm] = useState(false);
+  const navigate = useNavigate();
   const { loading, error, value: chirp } = useAsync(() => getChirpById(cid));
   const {
     chirpLikeLocalAndServer,
@@ -46,15 +49,24 @@ function SingleChirpPage() {
   function handleChirpReply() {
     setOpenChirpForm(!openChirpForm);
   }
+  function navBack() {
+    navigate(-1);
+  }
   if (loading) return "Loading...";
   return (
     <>
       <Header>
-        <div className="py-2 px-4 flex flex-col">
+        <div className="py-2 px-4 flex gap-2 items-center">
+          <button
+            onClick={navBack}
+            className="rounded-full w-8 h-8 hover:bg-gray-200 flex items-center justify-center"
+          >
+            <FaArrowLeft />
+          </button>
           <h1 className="font-bold text-xl">Chirp</h1>
         </div>
       </Header>
-      <div className="px-4 py-2 border-b border-gray-300">
+      <div className="px-4 py-2 border-b border-slate-100">
         <div className="flex gap-4 items-start">
           <div className="w-12 h-12 rounded-full shrink-0 overflow-hidden">
             <img
@@ -68,83 +80,76 @@ function SingleChirpPage() {
           </div>
         </div>
         <div className="py-2">
+          {chirp.replyingTo && (
+            <p className="text-gray-500">
+              Replying to
+              <span className="text-teal-500 ml-1 font-bold">
+                @{chirp.replyingTo}
+              </span>
+            </p>
+          )}
           <p>{chirp.message}</p>
         </div>
-        <div className="flex gap-4 py-2 border-y border-gray-300">
+        <div className="flex gap-4 py-2 border-y border-slate-100">
           <p className="text-gray-500">
             <span className="text-black font-bold">
               {(replies != null && replies.length) || 0}
-            </span>
-            &nbsp;Replies
+            </span>{" "}
+            Replies
           </p>
           <p className="text-gray-500">
             <span className="text-black font-bold">
               {chirp.rechirps.length}
-            </span>
-            &nbsp;Rechirps
+            </span>{" "}
+            Rechirps
           </p>
           <p className="text-gray-500">
-            <span className="text-black font-bold">{chirp.likes.length}</span>
-            &nbsp;Likes
+            <span className="text-black font-bold">{chirp.likes.length}</span>{" "}
+            Likes
           </p>
         </div>
         <div className="flex items-center justify-around gap-8 mt-2">
-          <button
-            title="Reply"
-            className="group flex items-center gap-2 hover:text-teal-500"
+          <IconBtn
+            icon={<FaRegComment />}
             onClick={handleChirpReply}
-          >
-            <span className="group-hover:bg-teal-200 rounded-full p-2">
-              <FaRegComment />
-            </span>
-          </button>
-          <button
+            title="Reply"
+            action="reply"
+          />
+          <IconBtn
+            icon={<FaRetweet />}
+            onClick={handleReChirp}
             title={
               currentUserDetails.uid === chirp.user.uid
                 ? "You can't rechirp your own chirp"
                 : "Rechirp"
             }
-            className={`group flex items-center gap-4 hover:text-green-500 disabled:cursor-not-allowed disabled:text-gray-300 ${
-              chirp.rechirps.indexOf(currentUserDetails.uid) !== -1 &&
-              "text-green-500"
-            }`}
-            onClick={handleReChirp}
+            action="rechirp"
             disabled={currentUserDetails.uid === chirp.user.uid}
-          >
-            <span className="group-hover:bg-green-200 rounded-full p-2">
-              <FaRetweet />
-            </span>
-          </button>
-          <button
-            title="Like"
-            className={`group flex items-center gap-4 hover:text-pink-500 ${
-              chirp.likes.indexOf(currentUserDetails.uid) !== -1 &&
-              "text-pink-500"
-            }`}
-            onClick={handleChirpLike}
-          >
-            <span className="group-hover:bg-pink-200 rounded-full p-2">
-              {chirp.likes.indexOf(currentUserDetails.uid) !== -1 ? (
+            actionDone={chirp.rechirps.indexOf(currentUserDetails.uid) !== -1}
+          />
+          <IconBtn
+            icon={
+              chirp.likes.indexOf(currentUserDetails.uid) !== -1 ? (
                 <FaHeart />
               ) : (
                 <FaRegHeart />
-              )}
-            </span>
-          </button>
-          <button
-            title="Share"
-            className="group flex items-center gap-4 hover:text-teal-500"
-          >
-            <span className="group-hover:bg-teal-200 rounded-full p-2">
-              <FaShare />
-            </span>
-          </button>
+              )
+            }
+            onClick={handleChirpLike}
+            title="Like"
+            action="like"
+            actionDone={chirp.likes.indexOf(currentUserDetails.uid) !== -1}
+          />
+
+          <IconBtn icon={<FaShare />} title="Share" action="share" />
         </div>
       </div>
       <div>
         {replies != null &&
           replies.length > 0 &&
-          replies.map((reply) => <SingleChirp chirp={reply} />)}
+          replies.map((reply) => (
+            <SingleChirp key={chirp.chirpId} chirp={reply} />
+          ))}
       </div>
       <Modal isOpen={openChirpForm} handleModalState={handleChirpReply}>
         <ComposeChirpForm
@@ -160,4 +165,4 @@ function SingleChirpPage() {
   );
 }
 
-export default SingleChirpPage;
+export default ChirpThreadPage;

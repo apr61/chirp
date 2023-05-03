@@ -7,7 +7,7 @@ import Notifications from "./pages/Notifications";
 import Messages from "./pages/Messages";
 import Explore from "./pages/Explore";
 import Bookmarks from "./pages/Bookmarks";
-import SingleChirpPage from "./pages/SingleChirpPage";
+import ChirpThreadPage from "./pages/ChirpThreadPage";
 import MainPage from "./pages/MainPage";
 import SignUp from "./pages/SignUp";
 import SignUpProvider from "./context/SignUpUserContext";
@@ -34,7 +34,7 @@ export default function App() {
               <Route path="/bookmarks" element={<Bookmarks />} />
               <Route
                 path="/:username/status/:cid"
-                element={<SingleChirpPage />}
+                element={<ChirpThreadPage />}
               />
             </Route>
           </Route>

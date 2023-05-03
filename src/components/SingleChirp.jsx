@@ -13,6 +13,7 @@ import Modal from "./Modal";
 import ComposeChirpForm from "./ComposeChirpForm";
 import ReplyingChirp from "./ReplyingChirp";
 import { Link } from "react-router-dom";
+import IconBtn from "./IconBtn";
 
 function SingleChirp({ chirp }) {
   const [openChirpForm, setOpenChirpForm] = useState(false);
@@ -42,7 +43,7 @@ function SingleChirp({ chirp }) {
   }
   return (
     <>
-      <article className="flex gap-4 p-2 items-start border-b border-gray-300 hover:bg-gray-100">
+      <article className="flex gap-4 p-2 items-start border-b border-slate-100 hover:bg-gray-100">
         <div className="w-12 h-12 rounded-full shrink-0 overflow-hidden">
           <img src={profileUrl} className="w-full h-full object-cover" />
         </div>
@@ -64,64 +65,44 @@ function SingleChirp({ chirp }) {
             <p>{message}</p>
           </Link>
           <div className="flex items-center gap-8 mt-2">
-            <button
-              title="Reply"
-              className="group flex items-center gap-2 hover:text-teal-500"
+            <IconBtn
+              text={(replies != null && replies.length) || 0}
+              icon={<FaRegComment />}
               onClick={handleChirpReply}
-            >
-              <span className="group-hover:bg-teal-200 rounded-full p-2">
-                <FaRegComment />
-              </span>
-              {(replies != null && replies.length) || 0}
-            </button>
-            <button
+              title="Reply"
+              action="reply"
+            />
+            <IconBtn
+              text={rechirps.length}
+              icon={<FaRetweet />}
+              onClick={handleReChirp}
               title={
                 currentUserDetails.uid === uid
                   ? "You can't rechirp your own chirp"
                   : "Rechirp"
               }
-              className={`group flex items-center gap-4 hover:text-green-500 disabled:cursor-not-allowed disabled:text-gray-300 ${
-                isRechirped && "text-green-500"
-              }`}
-              onClick={handleReChirp}
+              action="rechirp"
               disabled={currentUserDetails.uid === uid}
-            >
-              <span className="group-hover:bg-green-200 rounded-full p-2">
-                <FaRetweet />
-              </span>
-              {rechirps.length}
-            </button>
-            <button
-              title="Like"
-              className={`group flex items-center gap-4 hover:text-pink-500 ${
-                isLiked && "text-pink-500"
-              }`}
+              actionDone={isRechirped}
+            />
+            <IconBtn
+              text={likes.length}
+              icon={isLiked ? <FaHeart /> : <FaRegHeart />}
               onClick={handleChirpLike}
-            >
-              <span className="group-hover:bg-pink-200 rounded-full p-2">
-                {isLiked ? <FaHeart /> : <FaRegHeart />}
-              </span>
-              {likes.length}
-            </button>
-            <button
-              title="Share"
-              className="group flex items-center gap-4 hover:text-teal-500"
-            >
-              <span className="group-hover:bg-teal-200 rounded-full p-2">
-                <FaShare />
-              </span>
-            </button>
+              title="Like"
+              action="like"
+              actionDone={isLiked}
+            />
+
+            <IconBtn icon={<FaShare />} title="Share" action="share" />
+
             {currentUserDetails.uid === uid && (
-              <button
-                title="Delete"
-                className="group flex items-center gap-4 hover:text-red-500"
+              <IconBtn
+                icon={<FaTrash />}
                 onClick={handleChirpDelete}
-              >
-                <span className="group-hover:bg-red-200 rounded-full p-2">
-                  <FaTrash />
-                </span>
-                Delete
-              </button>
+                title="Delete"
+                action="delete"
+              />
             )}
           </div>
         </div>
