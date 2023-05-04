@@ -15,6 +15,7 @@ import ContextLayout from "./layouts/ContextLayout";
 import AuthProvider from "./context/AuthContext";
 import RequireAuthLayout from "./layouts/RequireAuthLayout";
 import ChirpProvider from "./context/ChirpContext";
+import ChirpThreadProvider from "./context/ChirpThreadContext";
 
 export default function App() {
   return (
@@ -34,7 +35,11 @@ export default function App() {
               <Route path="/bookmarks" element={<Bookmarks />} />
               <Route
                 path="/:username/status/:cid"
-                element={<ChirpThreadPage />}
+                element={
+                  <ChirpThreadProvider>
+                    <ChirpThreadPage />
+                  </ChirpThreadProvider>
+                }
               />
             </Route>
           </Route>

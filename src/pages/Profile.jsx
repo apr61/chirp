@@ -17,6 +17,7 @@ export default function Profile() {
   const { loading, value: chirps } = useAsync(() =>
     getChiprsBasedOnUserId(userId)
   );
+
   function handleActiveTab(e) {
     setActiveTab(e.target.textContent);
   }
