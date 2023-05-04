@@ -39,7 +39,7 @@ export default function SideNavBar() {
   }
   return (
     <>
-      <aside className="sticky top-0 h-screen overflow-x-auto">
+      <aside className="w-1/4 sticky top-0 h-screen overflow-x-auto">
         <ul className="flex flex-col gap-4 p-4 h-screen">
           <li>
             <Link to="/">Logo</Link>
