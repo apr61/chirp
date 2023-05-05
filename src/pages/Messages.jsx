@@ -5,7 +5,7 @@ import { BiMessageSquareAdd } from "react-icons/bi";
 export default function Messages() {
   return (
     <>
-      <main className="max-w-7xl mx-auto flex min-h-screen">
+      <main className="sm:max-w-2xl lg:max-w-5xl xl:max-w-6xl mx-auto flex min-h-screen">
         <SideNavbar />
         <div className="flex-1 flex border-x border-slate-100">
           <div className="basis-1/3 border-r border-slate-100">

@@ -4,9 +4,9 @@ import SideSuggestions from "../components/SideSuggestions";
 
 function MainLayout() {
   return (
-    <main className="max-w-6xl mx-auto flex min-h-screen">
+    <main className="lg:max-w-5xl xl:max-w-6xl sm:max-w-2xl mx-auto flex min-h-screen">
       <SideNavbar />
-      <div className="w-2/4 border-x border-slate-100 relative">
+      <div className="sm:border-x lg:max-w-md xl:max-w-xl w-full border-slate-100 relative">
         <Outlet />
       </div>
       <SideSuggestions />

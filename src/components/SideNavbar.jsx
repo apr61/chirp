@@ -13,6 +13,8 @@ import Button from "./Button";
 import Modal from "./Modal";
 import ComposeChirpForm from "./ComposeChirpForm";
 import useAuthContext from "../hooks/useAuthContext";
+import { FaTwitter } from "react-icons/fa";
+import { AiOutlineClose } from "react-icons/ai";
 
 const linksWithText = [
   { path: "/home", pathName: "Home", icon: <FiHome /> },
@@ -26,6 +28,7 @@ const linksWithText = [
 export default function SideNavBar() {
   const [openComposeChirp, setOpenComposeChirp] = useState(false);
   const [openUserOptions, setOpenUserOptions] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { loading, logOutUser, currentUserDetails } = useAuthContext();
 
   function handleComposeChirp() {
@@ -39,59 +42,87 @@ export default function SideNavBar() {
   }
   return (
     <>
-      <aside className="w-1/4 sticky top-0 h-screen overflow-x-auto">
-        <ul className="flex flex-col gap-4 p-4 h-screen">
-          <li>
-            <Link to="/">Logo</Link>
+      <button
+        className="block absolute top-2 left-2 z-50 sm:hidden"
+        onClick={() => setIsMenuOpen(true)}
+      >
+        <div className="w-10 h-10">
+          <img
+            src={currentUserDetails.profileUrl}
+            className="w-full h-full object-cover rounded-full"
+            loading="lazy"
+            alt={currentUserDetails.name}
+          />
+        </div>
+      </button>
+      <aside
+        className={`${
+          isMenuOpen ? "opacity-100 z-50 box-shadow-nav" : "opacity-0 z-0"
+        } absolute left-0 bottom-0 bg-white sm:block w-[80vw] sm:opacity-100 sm:z-50 sm:w-fit sm:sticky top-0 h-screen overflow-x-auto`}
+      >
+        <button
+          className="absolute top-2 right-2 text-xl sm:hidden"
+          onClick={() => setIsMenuOpen(false)}
+        >
+          <AiOutlineClose />
+        </button>
+        <ul className="flex flex-col gap-4 sm:gap-2 p-4 h-screen sm:items-center lg:items-start lg:gap-4">
+          <li className="rounded-full text-center hover:bg-gray-100">
+            <Link to="/" className="sm:p-4 text-xl flex items-center">
+              <FaTwitter />
+            </Link>
           </li>
           {linksWithText.map((link) => (
             <li
-              className="rounded-full max-w-fit text-center hover:bg-gray-100 w-48"
+              className="rounded-full text-center hover:bg-gray-100"
               key={link.pathName}
             >
               <NavLink
                 className={({ isActive }) =>
-                  `px-4 py-2 h-full w-full text-xl flex items-center gap-4 ${
+                  `sm:p-4 lg:px-4 lg:py-2 text-xl flex items-center gap-4 ${
                     isActive && "font-bold"
                   }`
                 }
                 to={link.path}
               >
-                <span>{link.icon}</span>
-                {link.pathName}
+                {link.icon}
+                <span className="sm:hidden lg:block">{link.pathName}</span>
               </NavLink>
             </li>
           ))}
-          <li className="rounded-full max-w-fit text-center hover:bg-gray-100 w-48">
-            <button className="px-4 py-2 w-full flex items-center gap-4 text-xl">
-              <span>
-                <FiMoreHorizontal />
-              </span>{" "}
-              More
+          <li className="rounded-full text-center hover:bg-gray-100">
+            <button className="sm:p-4 lg:px-4 lg:py-2 flex items-center gap-4 text-xl">
+              <FiMoreHorizontal />
+              <span className="sm:hidden xl:block">More</span>
             </button>
           </li>
-          <Button onClick={handleComposeChirp}>Chirp</Button>
-          <div className="mt-auto relative w-full">
+          <Button onClick={handleComposeChirp}>
+            <span className="hidden lg:block">Chirp</span>
+            <span className="text-center lg:hidden">+</span>
+          </Button>
+          <div className="mt-auto relative">
             <li className="border-gray-200 rounded-full hover:bg-gray-100 focus:ring-1 relative p-2">
               <button
                 className="flex gap-2 items-center justify-between"
                 onClick={handleUserOptions}
               >
-                <img
-                  src={currentUserDetails.profileUrl}
-                  className="w-12 h-12 object-cover rounded-full"
-                  loading="lazy"
-                  alt={currentUserDetails.name}
-                />
-                <div className="flex flex-col items-start text-start">
-                  <h3 className="font-bold whitespace-nowrap overflow-hidden text-ellipsis w-36">
+                <div className="w-12 h-12">
+                  <img
+                    src={currentUserDetails.profileUrl}
+                    className="w-full h-full object-cover rounded-full"
+                    loading="lazy"
+                    alt={currentUserDetails.name}
+                  />
+                </div>
+                <div className="sm:hidden lg:block flex flex-col items-start text-start">
+                  <h3 className="font-bold whitespace-nowrap overflow-hidden text-ellipsis w-24">
                     {currentUserDetails.name}
                   </h3>
                   <p className="text-slate-700">
                     @{currentUserDetails.username}
                   </p>
                 </div>
-                <span>
+                <span className="sm:hidden lg:block">
                   <FiMoreHorizontal />
                 </span>
               </button>

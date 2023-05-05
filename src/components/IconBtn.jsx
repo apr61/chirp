@@ -35,7 +35,7 @@ function IconBtn({
   return (
     <button
       title={title}
-      className={`group flex items-center gap-2 ${
+      className={`group flex items-center sm:gap-2 ${
         CHIRP_ACTIONS[action]["hover-text"]
       } ${
         actionDone && CHIRP_ACTIONS[action]["action-done"]
@@ -46,7 +46,7 @@ function IconBtn({
       <span
         className={`rounded-full p-2 ${CHIRP_ACTIONS[action]["hover-icon"]}`}
       >
-        {icon}
+        {icon}{" "}
       </span>
       {text}
     </button>

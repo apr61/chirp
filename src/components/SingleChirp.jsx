@@ -43,8 +43,8 @@ function SingleChirp({ chirp }) {
   }
   return (
     <>
-      <article className="flex gap-4 p-2 items-start border-b border-slate-100 hover:bg-gray-100">
-        <div className="w-12 h-12 rounded-full shrink-0 overflow-hidden">
+      <article className="flex xl:gap-4 gap-2 p-2 items-start border-b border-slate-100 hover:bg-gray-100">
+        <div className="sm:w-12 sm:h-12 w-10 h-10 rounded-full shrink-0 overflow-hidden">
           <img src={profileUrl} className="w-full h-full object-cover" />
         </div>
         <div className="">
@@ -64,7 +64,7 @@ function SingleChirp({ chirp }) {
           <Link to={`/${username}/status/${chirpId}`}>
             <p>{message}</p>
           </Link>
-          <div className="flex items-center gap-8 mt-2">
+          <div className="flex items-center sm:gap-8 justify-between sm:mt-2">
             <IconBtn
               text={(replies != null && replies.length) || 0}
               icon={<FaRegComment />}
