@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   FiHome,
   FiHash,
@@ -9,21 +9,13 @@ import {
   FiBookmark,
   FiUser,
 } from "react-icons/fi";
+import { AiOutlineClose } from "react-icons/ai";
+import { FaTwitter } from "react-icons/fa";
 import Button from "./Button";
 import Modal from "./Modal";
+import NavItem from "./NavItem";
 import ComposeChirpForm from "./ComposeChirpForm";
 import useAuthContext from "../hooks/useAuthContext";
-import { FaTwitter } from "react-icons/fa";
-import { AiOutlineClose } from "react-icons/ai";
-
-const linksWithText = [
-  { path: "/home", pathName: "Home", icon: <FiHome /> },
-  { path: "/explore", pathName: "Explore", icon: <FiHash /> },
-  { path: "/notifications", pathName: "Notifications", icon: <FiBell /> },
-  { path: "/messages", pathName: "Messages", icon: <FiMessageSquare /> },
-  { path: "/bookmarks", pathName: "Bookmarks", icon: <FiBookmark /> },
-  { path: "/profile", pathName: "Profile", icon: <FiUser /> },
-];
 
 export default function SideNavBar() {
   const [openComposeChirp, setOpenComposeChirp] = useState(false);
@@ -43,10 +35,10 @@ export default function SideNavBar() {
   return (
     <>
       <button
-        className="block absolute top-2 left-2 z-50 sm:hidden"
+        className="block absolute top-4 left-4 z-50 sm:hidden"
         onClick={() => setIsMenuOpen(true)}
       >
-        <div className="w-10 h-10">
+        <div className="w-8 h-8">
           <img
             src={currentUserDetails.profileUrl}
             className="w-full h-full object-cover rounded-full"
@@ -58,40 +50,44 @@ export default function SideNavBar() {
       <aside
         className={`${
           isMenuOpen ? "opacity-100 z-50 box-shadow-nav" : "opacity-0 z-0"
-        } absolute left-0 bottom-0 bg-white sm:block w-[80vw] sm:opacity-100 sm:z-50 sm:w-fit sm:sticky top-0 h-screen overflow-x-auto`}
+        } absolute left-0 bottom-0 bg-white sm:block w-[80vw] sm:opacity-100 sm:z-50 sm:w-fit sm:sticky top-0 h-screen overflow-y-auto overflow-x-hidden`}
       >
         <button
-          className="absolute top-2 right-2 text-xl sm:hidden"
+          className="absolute top-4 right-4 text-2xl sm:hidden"
           onClick={() => setIsMenuOpen(false)}
         >
           <AiOutlineClose />
         </button>
-        <ul className="flex flex-col gap-4 sm:gap-2 p-4 h-screen sm:items-center lg:items-start lg:gap-4">
-          <li className="rounded-full text-center hover:bg-gray-100">
-            <Link to="/" className="sm:p-4 text-xl flex items-center">
+        <ul className="flex flex-col gap-2 p-4 h-screen sm:gap-2 sm:items-center lg:items-start">
+          <li className="flex">
+            <Link
+              to="/"
+              className="p-4 hover:bg-gray-100 text-2xl rounded-full"
+            >
               <FaTwitter />
             </Link>
           </li>
-          {linksWithText.map((link) => (
-            <li
-              className="rounded-full text-center hover:bg-gray-100"
-              key={link.pathName}
-            >
-              <NavLink
-                className={({ isActive }) =>
-                  `sm:p-4 lg:px-4 lg:py-2 text-xl flex items-center gap-4 ${
-                    isActive && "font-bold"
-                  }`
-                }
-                to={link.path}
-              >
-                {link.icon}
-                <span className="sm:hidden lg:block">{link.pathName}</span>
-              </NavLink>
-            </li>
-          ))}
-          <li className="rounded-full text-center hover:bg-gray-100">
-            <button className="sm:p-4 lg:px-4 lg:py-2 flex items-center gap-4 text-xl">
+          <NavItem path="/home" pathName="Home" icon={<FiHome />} />
+          <NavItem path="/explore" pathName="Explore" icon={<FiHash />} />
+          <NavItem
+            path="/notifications"
+            pathName="Notifications"
+            icon={<FiBell />}
+          />
+          <NavItem
+            path="/messages"
+            pathName="Messages"
+            icon={<FiMessageSquare />}
+          />
+          <NavItem
+            path="/bookmarks"
+            pathName="Bookmarks"
+            icon={<FiBookmark />}
+          />
+          <NavItem path="/profile" pathName="Profile" icon={<FiUser />} />
+
+          <li className="rounded-full text-center hover:bg-gray-100 w-fit">
+            <button className="p-2 sm:p-4 lg:px-4 lg:py-2 flex items-center gap-4 text-xl">
               <FiMoreHorizontal />
               <span className="sm:hidden xl:block">More</span>
             </button>
