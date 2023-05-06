@@ -4,7 +4,7 @@ import SearchInput from "./SearchInput";
 export default function SideSuggestions() {
   const { currentUserDetails } = useAuthContext();
   return (
-    <div className="hidden lg:block lg:max-w-lg sticky top-0 h-screen p-4">
+    <div className="hidden lg:block xl:max-w-xs sticky top-0 h-screen p-4">
       <SearchInput />
       <section className="mt-4 bg-gray-500 p-4 flex flex-col gap-2 bg-opacity-5 rounded-lg w-full">
         <h3 className="font-medium text-lg">Who to follow</h3>
