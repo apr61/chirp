@@ -48,20 +48,20 @@ export default function SideNavBar() {
       </button>
       <aside
         className={`${
-          isMenuOpen ? "opacity-100 z-50 box-shadow-nav" : "opacity-0 z-0"
-        } fixed left-0 bottom-0 top-0 bg-white w-[80vw] h-screen overflow-y-auto overflow-x-hidden sm:block sm:opacity-100 sm:z-50 sm:sticky sm:w-fit`}
+          isMenuOpen ? "opacity-100 z-50  w-[80vw] box-shadow-nav" : "opacity-0 z-0"
+        } fixed left-0 bottom-0 top-0 bg-white h-screen overflow-y-auto overflow-x-hidden sm:block sm:opacity-100 sm:z-50 sm:sticky`}
       >
-        <div className="flex flex-col sm:items-center px-6 py-1 min-h-screen">
+        <div className="flex flex-col sm:items-center px-4 py-1 min-h-screen">
           <button
             className="absolute top-4 right-4 text-2xl sm:hidden"
             onClick={() => setIsMenuOpen(false)}
           >
             <AiOutlineClose />
           </button>
-          <nav className="flex flex-col sm:items-center lg:items-start lg:gap-2 xl:gap-3">
+          <nav className="flex flex-col sm:items-center lg:items-start lg:gap-1">
             <Link
               to="/"
-              className="flex p-4 hover:bg-gray-100 text-2xl rounded-full"
+              className="flex p-3 hover:bg-gray-100 text-2xl rounded-full"
             >
               <FaTwitter />
             </Link>

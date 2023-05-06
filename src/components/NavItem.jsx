@@ -4,7 +4,7 @@ function NavItem({ pathName = "", path, icon }) {
   return (
     <NavLink
       className={({ isActive }) =>
-        `p-2 sm:p-4 xl:px-4 xl:py-2 text-xl flex items-center gap-4 rounded-full text-center hover:bg-gray-100 w-fit ${
+        `p-3 xl:px-4 xl:py-2 text-xl flex items-center gap-4 rounded-full text-center hover:bg-gray-100 w-fit ${
           isActive && "font-bold"
         }`
       }
