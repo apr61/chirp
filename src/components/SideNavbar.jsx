@@ -9,7 +9,7 @@ import {
   FiUser,
 } from "react-icons/fi";
 import { AiOutlineClose, AiOutlineHome } from "react-icons/ai";
-import { FaTwitter } from "react-icons/fa";
+import { FaFeatherAlt, FaTwitter } from "react-icons/fa";
 import Button from "./Button";
 import Modal from "./Modal";
 import NavItem from "./NavItem";
@@ -47,18 +47,17 @@ export default function SideNavBar() {
         </div>
       </button>
       <aside
-        className={`${
-          isMenuOpen ? "opacity-100 z-50  w-[80vw] box-shadow-nav" : "opacity-0 z-0"
-        } fixed left-0 bottom-0 top-0 bg-white h-screen overflow-y-auto overflow-x-hidden sm:block sm:opacity-100 sm:z-50 sm:sticky`}
+        className={`${isMenuOpen && "opacity-100 z-50  w-[80vw] box-shadow-nav"
+          } opacity-0 z-0 fixed left-0 bottom-0 top-0 bg-white h-screen overflow-y-auto overflow-x-hidden sm:block sm:opacity-100 sm:z-50 sm:sticky xl:w-[16rem]`}
       >
-        <div className="flex flex-col sm:items-center px-4 py-1 min-h-screen">
+        <div className="flex flex-col items-start p-4 sm:items-center sm:p-0 lg:px-4 xl:px-4 py-2 xl:items-start min-h-screen">
           <button
             className="absolute top-4 right-4 text-2xl sm:hidden"
             onClick={() => setIsMenuOpen(false)}
           >
             <AiOutlineClose />
           </button>
-          <nav className="flex flex-col sm:items-center lg:items-start lg:gap-1">
+          <nav className="flex flex-col sm:items-center lg:items-start lg:gap-1 xl:gap-2">
             <Link
               to="/"
               className="flex p-3 hover:bg-gray-100 text-2xl rounded-full"
@@ -91,13 +90,16 @@ export default function SideNavBar() {
               </button>
             </div>
           </nav>
-          <div className="mt-2">
-            <Button onClick={handleComposeChirp}>Chirp</Button>
+          <div className="mt-3 xl:w-full">
+            <Button classes={'w-14 h-14 xl:w-full'} onClick={handleComposeChirp}>
+              <span className="hidden xl:block">Chirp</span>
+              <span className="xl:hidden"><FaFeatherAlt /></span>
+            </Button>
           </div>
-          <div className="mt-auto relative">
-            <div className="border-gray-200 rounded-full hover:bg-gray-100 focus:ring-1 relative p-2">
+          <div className="mt-auto relative w-full">
+            <div className="border-gray-200 rounded-full hover:bg-gray-100 focus:ring-1 p-4 xl:p-2 sm:grid sm:place-items-center">
               <button
-                className="flex gap-2 items-center justify-between"
+                className="flex items-center gap-4"
                 onClick={handleUserOptions}
               >
                 <div className="w-10 h-10">
