@@ -49,8 +49,10 @@ function SingleChirp({ chirp }) {
         </div>
         <div className="">
           <div className="flex items-center gap-2">
-            <h3 className="font-bold">{name}</h3>
-            <p className="text-slate-500">@{username}</p>
+            <Link to={`/${username}`} className="flex items-center gap-2">
+              <h3 className="font-bold">{name}</h3>
+              <p className="text-slate-500">@{username}</p>
+            </Link>
             <p className="text-slate-500"> - {}</p>
           </div>
           {replyingTo && (

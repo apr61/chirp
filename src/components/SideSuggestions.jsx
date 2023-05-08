@@ -21,7 +21,7 @@ export default function SideSuggestions() {
             </h3>
             <p className="text-slate-700">@{currentUserDetails.username}</p>
           </div>
-          <button className="px-4 py-2 border border-black rounded-full hover:bg-white outline-2 outline-gray-200 ml-auto">
+          <button className="px-4 py-1 border border-black rounded-full bg-black font-bold text-white hover:bg-white hover:text-black outline-2 outline-gray-200 ml-auto">
             Follow
           </button>
         </div>

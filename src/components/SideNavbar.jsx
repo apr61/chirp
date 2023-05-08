@@ -47,8 +47,9 @@ export default function SideNavBar() {
         </div>
       </button>
       <aside
-        className={`${isMenuOpen && "opacity-100 z-50  w-[80vw] box-shadow-nav"
-          } opacity-0 z-0 fixed left-0 bottom-0 top-0 bg-white h-screen overflow-y-auto overflow-x-hidden sm:block sm:opacity-100 sm:z-50 sm:sticky xl:w-[16rem]`}
+        className={`${
+          isMenuOpen && "opacity-100 z-50  w-[80vw] box-shadow-nav"
+        } opacity-0 z-0 fixed left-0 bottom-0 top-0 bg-white h-screen overflow-y-auto overflow-x-hidden sm:block sm:opacity-100 sm:z-50 sm:sticky xl:w-[16rem]`}
       >
         <div className="flex flex-col items-start p-4 sm:items-center sm:p-0 lg:px-4 xl:px-4 py-2 xl:items-start min-h-screen">
           <button
@@ -81,7 +82,11 @@ export default function SideNavBar() {
               pathName="Bookmarks"
               icon={<FiBookmark />}
             />
-            <NavItem path="/profile" pathName="Profile" icon={<FiUser />} />
+            <NavItem
+              path={`/${currentUserDetails.username}`}
+              pathName="Profile"
+              icon={<FiUser />}
+            />
 
             <div className="rounded-full text-center hover:bg-gray-100">
               <button className="p-2 sm:p-4 xl:px-4 xl:py-2 flex items-center gap-4 text-xl">
@@ -91,9 +96,14 @@ export default function SideNavBar() {
             </div>
           </nav>
           <div className="mt-3 xl:w-full">
-            <Button classes={'w-14 h-14 xl:w-full'} onClick={handleComposeChirp}>
+            <Button
+              classes={"w-14 h-14 xl:w-full"}
+              onClick={handleComposeChirp}
+            >
               <span className="hidden xl:block">Chirp</span>
-              <span className="xl:hidden"><FaFeatherAlt /></span>
+              <span className="xl:hidden">
+                <FaFeatherAlt />
+              </span>
             </Button>
           </div>
           <div className="mt-auto relative w-full">

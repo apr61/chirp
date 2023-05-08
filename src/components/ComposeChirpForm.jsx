@@ -56,7 +56,7 @@ function ComposeChirpForm({
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             required="true"
-            autoFocus="true"
+            autoFocus={true}
           ></textarea>
           <div className="flex">
             <div className="ml-auto">

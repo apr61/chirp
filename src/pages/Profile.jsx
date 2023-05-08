@@ -3,20 +3,17 @@ import { BsCalendar3 } from "react-icons/bs";
 import Header from "../components/Header";
 import TabBtn from "../components/TabBtn";
 import useAuthContext from "../hooks/useAuthContext";
+import useProfileContext from "../hooks/useProfileContext";
 import SingleChirp from "../components/SingleChirp";
-import { getChiprsBasedOnUserId } from "../services/chirps";
-import { useAsync } from "../hooks/useAsync";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 
 export default function Profile() {
   const [activeTab, setActiveTab] = useState("Chirps");
   const { currentUserDetails } = useAuthContext();
   const navigate = useNavigate();
-  const userId = currentUserDetails.uid != null && currentUserDetails.uid;
-  const { loading, value: chirps } = useAsync(() =>
-    getChiprsBasedOnUserId(userId)
-  );
+  const { isLoading, chirps, userDetails, onToggleFollowBtn } =
+    useProfileContext();
 
   function handleActiveTab(e) {
     setActiveTab(e.target.textContent);
@@ -24,7 +21,18 @@ export default function Profile() {
   function navBack() {
     navigate(-1);
   }
-  if (loading) return "Loading...";
+  function getIsFollower() {
+    return userDetails.followers.indexOf(currentUserDetails.uid) !== -1;
+  }
+  function handleToggleFollowBtn() {
+    onToggleFollowBtn(
+      userDetails.userId,
+      currentUserDetails.uid,
+      getIsFollower()
+    );
+  }
+  if (isLoading) return "Loading...";
+
   return (
     <>
       <Header>
@@ -36,7 +44,7 @@ export default function Profile() {
             <FaArrowLeft />
           </button>
           <div className="flex flex-col">
-            <h1 className="text-xl font-bold">{currentUserDetails.name}</h1>
+            <h1 className="text-xl font-bold">{userDetails.name}</h1>
             <p className="text-slate-500">{chirps.length} Chirps</p>
           </div>
         </div>
@@ -44,26 +52,36 @@ export default function Profile() {
       <div>
         <div className="h-52 w-full relative">
           <img
-            src={currentUserDetails.headerImg}
+            src={userDetails.headerImg}
             className="h-full w-full object-cover"
             alt="User header pic"
             loading="lazy"
           />
           <div className="absolute -bottom-20 left-4">
             <img
-              src={currentUserDetails.profileUrl}
+              src={userDetails.profileUrl}
               className="h-40 w-40 rounded-full border-4 border-white object-cover"
               alt="User header pic"
               loading="lazy"
             />
           </div>
-          <button className="py-2 px-4 border border-slate-300 rounded-full absolute -bottom-16 right-8 font-bold hover:bg-gray-200 focus:outline-slate-500">
-            Edit Profile
+          <button
+            className={`py-1 px-4 border border-slate-300 rounded-full absolute -bottom-16 right-8 font-bold hover:bg-gray-200 focus:outline-slate-500 ${
+              !getIsFollower() &&
+              "bg-black text-white hover:bg-white hover:text-black"
+            }`}
+            onClick={handleToggleFollowBtn}
+          >
+            {userDetails.userId === currentUserDetails.uid
+              ? "Edit Profile"
+              : getIsFollower()
+              ? "Following"
+              : "Follow"}
           </button>
         </div>
         <div className="mt-20 ml-4">
-          <h2 className="text-xl font-bold">{currentUserDetails.name}</h2>
-          <p className="text-gray-700">@{currentUserDetails.username}</p>
+          <h2 className="text-xl font-bold">{userDetails.name}</h2>
+          <p className="text-gray-700">@{userDetails.username}</p>
           <div className="flex gap-2 items-center text-gray-700 my-4">
             <span>
               <BsCalendar3 />
@@ -71,18 +89,18 @@ export default function Profile() {
             <p>Joined August 2022</p>
           </div>
           <div className="flex gap-4 text-gray-700">
-            <p>
+            <Link to={`/${userDetails.username}/following`}>
               <span className="font-bold text-black">
-                {currentUserDetails.following}
+                {userDetails.following?.length}
               </span>{" "}
               Following
-            </p>
-            <p>
+            </Link>
+            <Link to={`/${userDetails.username}/followers`}>
               <span className="font-bold text-black">
-                {currentUserDetails.followers}
+                {userDetails.followers?.length}
               </span>{" "}
               Followers
-            </p>
+            </Link>
           </div>
         </div>
         <div className="flex mt-4 border-b border-slate-100">
@@ -109,10 +127,9 @@ export default function Profile() {
         </div>
         <div className="py-2">
           {activeTab === "Chirps" &&
-            chirps.length > 0 &&
-            chirps.map((chirp) => (
-              <SingleChirp chirp={chirp} key={chirp.chirpId} />
-            ))}
+            chirps.map((chirp) => {
+              return <SingleChirp chirp={chirp} key={chirp.chirpId} />;
+            })}
         </div>
       </div>
     </>

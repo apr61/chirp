@@ -16,6 +16,9 @@ import AuthProvider from "./context/AuthContext";
 import RequireAuthLayout from "./layouts/RequireAuthLayout";
 import ChirpProvider from "./context/ChirpContext";
 import ChirpThreadProvider from "./context/ChirpThreadContext";
+import ProfileProvider from "./context/ProfileContext";
+import FollowersList from "./components/FollowersList";
+import FollowingList from "./components/FollowingList";
 
 export default function App() {
   return (
@@ -31,7 +34,14 @@ export default function App() {
               <Route path="/home" element={<Home />} />
               <Route path="/explore" element={<Explore />} />
               <Route path="/notifications" element={<Notifications />} />
-              <Route path="/profile" element={<Profile />} />
+              <Route
+                path="/:username"
+                element={<ContextLayout provider={ProfileProvider} />}
+              >
+                <Route index element={<Profile />} />
+                <Route path="followers" element={<FollowersList />} />
+                <Route path="following" element={<FollowingList />} />
+              </Route>
               <Route path="/bookmarks" element={<Bookmarks />} />
               <Route
                 path="/:username/status/:cid"

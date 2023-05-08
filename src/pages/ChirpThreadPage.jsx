@@ -7,7 +7,7 @@ import {
   FaArrowLeft,
 } from "react-icons/fa";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ComposeChirpForm from "../components/ComposeChirpForm";
 import Header from "../components/Header";
 import IconBtn from "../components/IconBtn";

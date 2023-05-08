@@ -80,6 +80,13 @@ export default function ChirpProvider({ children }) {
     );
   }
 
+  function getChirpsForCurrentUser(userId) {
+    return allChirps.filter((chirp) => chirp.user.uid === userId);
+  }
+  function getChirpById(chirpId) {
+    return allChirps.filter((chirp) => chirp.chirpId === chirpId);
+  }
+
   return (
     <ChirpContext.Provider
       value={{
@@ -90,6 +97,8 @@ export default function ChirpProvider({ children }) {
         deleteLocalAndServerChirp,
         chirpLikeLocalAndServer,
         chirpRechirpLoacalAndServer,
+        getChirpsForCurrentUser,
+        getChirpById,
       }}
     >
       {children}
