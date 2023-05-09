@@ -6,6 +6,8 @@ import {
   FaShare,
   FaTrash,
   FaHeart,
+  FaRegBookmark,
+  FaRegEdit,
 } from "react-icons/fa";
 import useAuthContext from "../hooks/useAuthContext";
 import useChirpContext from "../hooks/useChirpContext";
@@ -14,6 +16,8 @@ import ComposeChirpForm from "./ComposeChirpForm";
 import ReplyingChirp from "./ReplyingChirp";
 import { Link } from "react-router-dom";
 import IconBtn from "./IconBtn";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { formatFirebaseTime } from "../utils/TimeFormatter";
 
 function SingleChirp({ chirp }) {
   const [openChirpForm, setOpenChirpForm] = useState(false);
@@ -25,10 +29,11 @@ function SingleChirp({ chirp }) {
     getChirpReplies,
   } = useChirpContext();
   const { uid, name, username, profileUrl } = chirp.user;
-  const { chirpId, message, rechirps, likes, postedAt, replyingTo } = chirp;
+  const { chirpId, message, rechirps, likes, createdAt, replyingTo } = chirp;
   const isLiked = likes.indexOf(currentUserDetails.uid) !== -1;
   const isRechirped = rechirps.indexOf(currentUserDetails.uid) !== -1;
   const replies = getChirpReplies(chirpId);
+  const [openMoreOptionsDialog, setOpenMoreOptionsDialog] = useState(false);
   function handleChirpDelete() {
     deleteLocalAndServerChirp(chirpId);
   }
@@ -41,9 +46,14 @@ function SingleChirp({ chirp }) {
   function handleChirpReply() {
     setOpenChirpForm(!openChirpForm);
   }
+  function handleMoreOptionsDialog() {
+    setOpenMoreOptionsDialog(!openMoreOptionsDialog);
+  }
+  function handleChirpEdit() {}
+  function handleChirpBookmark() {}
   return (
     <>
-      <article className="flex xl:gap-4 gap-2 p-2 items-start border-b border-slate-100 hover:bg-gray-100">
+      <article className="flex xl:gap-4 gap-2 p-2 items-start border-b border-slate-100 hover:bg-gray-100 relative">
         <div className="sm:w-12 sm:h-12 w-10 h-10 rounded-full shrink-0 overflow-hidden">
           <img src={profileUrl} className="w-full h-full object-cover" />
         </div>
@@ -53,14 +63,20 @@ function SingleChirp({ chirp }) {
               <h3 className="font-bold">{name}</h3>
               <p className="text-slate-500">@{username}</p>
             </Link>
-            <p className="text-slate-500"> - {}</p>
+            <p className="text-slate-500">
+              {" "}
+              - {formatFirebaseTime(createdAt.seconds)}
+            </p>
           </div>
           {replyingTo && (
             <p className="text-gray-500">
               Replying to
-              <span className="text-teal-500 ml-1 font-bold">
+              <Link
+                className="text-teal-500 ml-1 font-medium"
+                to={`/${replyingTo}`}
+              >
                 @{replyingTo}
-              </span>
+              </Link>
             </p>
           )}
           <Link to={`/${username}/status/${chirpId}`}>
@@ -97,29 +113,65 @@ function SingleChirp({ chirp }) {
             />
 
             <IconBtn icon={<FaShare />} title="Share" action="share" />
-
-            {currentUserDetails.uid === uid && (
-              <IconBtn
-                icon={<FaTrash />}
-                onClick={handleChirpDelete}
-                title="Delete"
-                action="delete"
-              />
-            )}
           </div>
         </div>
-        {
-          <Modal isOpen={openChirpForm} handleModalState={handleChirpReply}>
-            <ComposeChirpForm
-              closeModal={handleChirpReply}
-              isRepliying={true}
-              parentId={chirpId}
-              replyingTo={username}
-            >
-              <ReplyingChirp chirp={chirp} />
-            </ComposeChirpForm>
-          </Modal>
-        }
+        <button
+          className="absolute top-4 right-4 rounded-full flex items-center justify-center p-2 text-gray-500"
+          title="More options"
+          onClick={handleMoreOptionsDialog}
+        >
+          <BsThreeDotsVertical />
+        </button>
+        {openMoreOptionsDialog && (
+          <div className="absolute top-8 right-9 shadow-2xl bg-white py-2 rounded-md max-w-[10rem] w-full z-10">
+            <div className="hover:bg-gray-100 px-4 py-1">
+              <button
+                onClick={handleChirpEdit}
+                className="flex gap-2 items-center"
+              >
+                <span>
+                  <FaRegEdit />
+                </span>
+                Edit Chirp
+              </button>
+            </div>
+            <div className="hover:bg-gray-100 px-4 py-1">
+              <button
+                onClick={handleChirpBookmark}
+                className="flex gap-2 items-center"
+              >
+                <span>
+                  <FaRegBookmark />
+                </span>
+                Bookmark
+              </button>
+            </div>
+            {currentUserDetails.uid === uid && (
+              <div className="hover:bg-gray-100 px-4 py-1">
+                <button
+                  onClick={handleChirpDelete}
+                  className="flex gap-2 items-center"
+                >
+                  <span>
+                    <FaTrash />
+                  </span>
+                  Delete
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+
+        <Modal isOpen={openChirpForm} handleModalState={handleChirpReply}>
+          <ComposeChirpForm
+            closeModal={handleChirpReply}
+            isRepliying={true}
+            parentId={chirpId}
+            replyingTo={username}
+          >
+            <ReplyingChirp chirp={chirp} />
+          </ComposeChirpForm>
+        </Modal>
       </article>
     </>
   );

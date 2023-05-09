@@ -15,6 +15,7 @@ import Modal from "./Modal";
 import NavItem from "./NavItem";
 import ComposeChirpForm from "./ComposeChirpForm";
 import useAuthContext from "../hooks/useAuthContext";
+import Logo from "./Logo";
 
 export default function SideNavBar() {
   const [openComposeChirp, setOpenComposeChirp] = useState(false);
@@ -59,12 +60,7 @@ export default function SideNavBar() {
             <AiOutlineClose />
           </button>
           <nav className="flex flex-col sm:items-center lg:items-start lg:gap-1 xl:gap-2">
-            <Link
-              to="/"
-              className="flex p-3 hover:bg-gray-100 text-2xl rounded-full"
-            >
-              <FaTwitter />
-            </Link>
+            <Logo />
             <NavItem path="/home" pathName="Home" icon={<AiOutlineHome />} />
             <NavItem path="/explore" pathName="Explore" icon={<FiHash />} />
             <NavItem

@@ -42,11 +42,11 @@ export default function Explore() {
           />
         </div>
       </Header>
-      <div className="px-4">
+      <div className="">
         {isLoading
           ? "Loading..."
           : activeTab === "For You" &&
-            rootChirps.length > 0 &&
+            rootChirps?.length > 0 &&
             rootChirps.map((chirp) => (
               <SingleChirp chirp={chirp} key={chirp.chirpId} />
             ))}

@@ -65,19 +65,21 @@ export default function Profile() {
               loading="lazy"
             />
           </div>
-          <button
-            className={`py-1 px-4 border border-slate-300 rounded-full absolute -bottom-16 right-8 font-bold hover:bg-gray-200 focus:outline-slate-500 ${
-              !getIsFollower() &&
-              "bg-black text-white hover:bg-white hover:text-black"
-            }`}
-            onClick={handleToggleFollowBtn}
-          >
-            {userDetails.userId === currentUserDetails.uid
-              ? "Edit Profile"
-              : getIsFollower()
-              ? "Following"
-              : "Follow"}
-          </button>
+          {userDetails.userId === currentUserDetails.uid ? (
+            <button className="py-1 px-4 border border-slate-300 rounded-full absolute -bottom-16 right-8 font-bold hover:bg-gray-200 focus:outline-slate-500">
+              Edit Profile
+            </button>
+          ) : (
+            <button
+              className={`py-1 px-4 border border-slate-300 rounded-full absolute -bottom-16 right-8 font-bold hover:bg-gray-200 focus:outline-slate-500 ${
+                !getIsFollower() &&
+                "bg-black text-white hover:bg-white hover:text-black"
+              }`}
+              onClick={handleToggleFollowBtn}
+            >
+              {getIsFollower() ? "Following" : "Follow"}
+            </button>
+          )}
         </div>
         <div className="mt-20 ml-4">
           <h2 className="text-xl font-bold">{userDetails.name}</h2>

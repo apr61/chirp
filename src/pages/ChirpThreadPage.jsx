@@ -7,7 +7,7 @@ import {
   FaArrowLeft,
 } from "react-icons/fa";
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ComposeChirpForm from "../components/ComposeChirpForm";
 import Header from "../components/Header";
 import IconBtn from "../components/IconBtn";
@@ -16,6 +16,7 @@ import ReplyingChirp from "../components/ReplyingChirp";
 import SingleChirp from "../components/SingleChirp";
 import useChirpThreadContext from "../hooks/useChirpThreadContext";
 import useAuthContext from "../hooks/useAuthContext";
+import { formatFirebaseTime } from "../utils/TimeFormatter";
 
 export default function ChirpThreadPage() {
   const [openChirpForm, setOpenChirpForm] = useState(false);
@@ -81,6 +82,9 @@ export default function ChirpThreadPage() {
                 </p>
               )}
               <p>{chirp.message}</p>
+              <p className="text-gray-500">
+                {formatFirebaseTime(chirp.createdAt.seconds)}
+              </p>
             </div>
             <div className="flex gap-4 py-2 border-y border-slate-100">
               <p className="text-gray-500">

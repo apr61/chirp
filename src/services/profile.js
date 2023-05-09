@@ -3,6 +3,7 @@ import {
   arrayUnion,
   collection,
   doc,
+  getDoc,
   getDocs,
   query,
   updateDoc,
@@ -34,4 +35,17 @@ export const toggleFollow = async (userId, requestedUserId, isFollower) => {
   return await updateDoc(docRefRequestedUser, {
     following: isFollower ? arrayRemove(userId) : arrayUnion(userId),
   });
+};
+
+export const getFollowersList = async (userId) => {
+  let FollowersList = [];
+  const docRef = doc(db, "users-details", userId);
+  const docSnapShot = await getDoc(docRef);
+  const followersUserIds = docSnapShot.data().followers;
+  const requests = followersUserIds.map((uid) => doc(db, "users-details", uid));
+  const usersQSnap = await Promise.all(requests);
+  console.log(requests);
+  // usersQSnap.forEach((qSnap) => {
+  //   console.log({ userId: qSnap.id, ...qSnap.data() });
+  // });
 };

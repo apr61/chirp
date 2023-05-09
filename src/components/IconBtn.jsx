@@ -4,9 +4,9 @@ const CHIRP_ACTIONS = {
     "hover-icon": "group-hover:bg-teal-200",
   },
   rechirp: {
-    "hover-text": "hover:text-emerald-500",
+    "hover-text": "hover:text-green-500",
     "hover-icon": "group-hover:bg-emerald-200",
-    "action-done": "text-emerald-500",
+    "action-done": "text-green-500",
   },
   like: {
     "hover-text": "hover:text-pink-500",
@@ -38,7 +38,7 @@ function IconBtn({
       className={`group flex items-center sm:gap-2 ${
         CHIRP_ACTIONS[action]["hover-text"]
       } ${
-        actionDone && CHIRP_ACTIONS[action]["action-done"]
+        actionDone ? CHIRP_ACTIONS[action]["action-done"] : "text-gray-700"
       } disabled:cursor-not-allowed disabled:text-gray-300`}
       onClick={onClick}
       disabled={disabled}

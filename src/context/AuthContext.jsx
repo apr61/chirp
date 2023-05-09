@@ -16,6 +16,7 @@ export default function AuthProvider({ children }) {
       setCurrentUser(user);
       try {
         setLoading(true);
+        if (user == null) return;
         getUserDetails(user.uid).then((userDetails) => {
           setCurrentUserDetails(userDetails);
         });

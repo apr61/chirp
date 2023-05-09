@@ -35,15 +35,7 @@ export default function App() {
               <Route path="/explore" element={<Explore />} />
               <Route path="/notifications" element={<Notifications />} />
               <Route
-                path="/:username"
-                element={<ContextLayout provider={ProfileProvider} />}
-              >
-                <Route index element={<Profile />} />
-                <Route path="followers" element={<FollowersList />} />
-                <Route path="following" element={<FollowingList />} />
-              </Route>
-              <Route path="/bookmarks" element={<Bookmarks />} />
-              <Route
+                exact
                 path="/:username/status/:cid"
                 element={
                   <ChirpThreadProvider>
@@ -51,6 +43,15 @@ export default function App() {
                   </ChirpThreadProvider>
                 }
               />
+              <Route
+                path="/:uname"
+                element={<ContextLayout provider={ProfileProvider} />}
+              >
+                <Route index element={<Profile />} />
+                <Route path="followers" element={<FollowersList />} />
+                <Route path="following" element={<FollowingList />} />
+              </Route>
+              <Route path="/bookmarks" element={<Bookmarks />} />
             </Route>
           </Route>
           <Route path="/messages" element={<Messages />} />

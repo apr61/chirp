@@ -5,7 +5,7 @@ import { getUserDetailsByUsername, toggleFollow } from "../services/profile";
 
 export const ProfileContext = createContext();
 function ProfileProvider({ children }) {
-  const { username } = useParams();
+  const { uname: username } = useParams();
   const [userDetails, setUserDetails] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const { getChirpsForCurrentUser } = useChirpContext();
@@ -41,6 +41,7 @@ function ProfileProvider({ children }) {
       };
     });
   }
+
   return (
     <ProfileContext.Provider
       value={{ isLoading, chirps, userDetails, onToggleFollowBtn }}

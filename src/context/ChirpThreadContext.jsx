@@ -2,10 +2,10 @@ import { createContext, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   getChirpById,
-  getRepliesById,
   toggleLikeChirp,
   toggleRechirpChirp,
 } from "../services/chirps";
+import useChirpContext from "../hooks/useChirpContext";
 
 export const ChirpThreadContext = createContext();
 
@@ -13,13 +13,11 @@ function ChirpThreadProvider({ children }) {
   const { cid } = useParams();
   const [isLoading, setIsLoading] = useState(false);
   const [chirp, setChirp] = useState({});
-  const [replies, setReplies] = useState([]);
+  const { getChirpReplies } = useChirpContext();
   const getData = async (cid) => {
     try {
       const chirpData = await getChirpById(cid);
-      const repliesData = await getRepliesById(cid);
       setChirp(chirpData);
-      setReplies(repliesData);
     } catch (err) {
       console.log(err);
     } finally {
@@ -60,7 +58,13 @@ function ChirpThreadProvider({ children }) {
   }
   return (
     <ChirpThreadContext.Provider
-      value={{ isLoading, chirp, replies, onChirpLike, onChirpReChirp }}
+      value={{
+        isLoading,
+        chirp,
+        onChirpLike,
+        onChirpReChirp,
+        replies: getChirpReplies(chirp.chirpId),
+      }}
     >
       {children}
     </ChirpThreadContext.Provider>
