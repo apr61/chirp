@@ -1,5 +1,5 @@
 export function formatFirebaseTime(seconds) {
-  const formatter = Intl.DateTimeFormat("utc", {
+  const formatter = Intl.DateTimeFormat(undefined, {
     day: "2-digit",
     month: "short",
     year: "2-digit",

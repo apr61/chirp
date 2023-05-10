@@ -53,12 +53,12 @@ function SingleChirp({ chirp }) {
   function handleChirpBookmark() {}
   return (
     <>
-      <article className="flex xl:gap-4 gap-2 p-2 items-start border-b border-slate-100 hover:bg-gray-100 relative">
+      <article className="flex xl:gap-4 gap-4 p-2 items-start border-b border-slate-100 hover:bg-gray-100 relative">
         <div className="sm:w-12 sm:h-12 w-10 h-10 rounded-full shrink-0 overflow-hidden">
           <img src={profileUrl} className="w-full h-full object-cover" />
         </div>
-        <div className="">
-          <div className="flex items-center gap-2">
+        <div className="w-full">
+          <div className="inline-flex items-center gap-2 whitespace-nowrap max-w-[300px] text-ellipsis overflow-hidden">
             <Link to={`/${username}`} className="flex items-center gap-2">
               <h3 className="font-bold">{name}</h3>
               <p className="text-slate-500">@{username}</p>
@@ -82,7 +82,7 @@ function SingleChirp({ chirp }) {
           <Link to={`/${username}/status/${chirpId}`}>
             <p>{message}</p>
           </Link>
-          <div className="flex items-center sm:gap-8 justify-between sm:mt-2">
+          <div className="flex items-center justify-between sm:justify-start sm:gap-8 sm:mt-2">
             <IconBtn
               text={(replies != null && replies.length) || 0}
               icon={<FaRegComment />}
@@ -116,7 +116,7 @@ function SingleChirp({ chirp }) {
           </div>
         </div>
         <button
-          className="absolute top-4 right-4 rounded-full flex items-center justify-center p-2 text-gray-500"
+          className="absolute top-2 right-2 sm:top-4 sm:right-4 rounded-full flex items-center justify-center p-2 text-gray-500"
           title="More options"
           onClick={handleMoreOptionsDialog}
         >
