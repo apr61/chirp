@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import {
   FiHash,
   FiMessageSquare,
@@ -9,7 +8,7 @@ import {
   FiUser,
 } from "react-icons/fi";
 import { AiOutlineClose, AiOutlineHome } from "react-icons/ai";
-import { FaFeatherAlt, FaTwitter } from "react-icons/fa";
+import { FaFeatherAlt } from "react-icons/fa";
 import Button from "./Button";
 import Modal from "./Modal";
 import NavItem from "./NavItem";
@@ -79,7 +78,7 @@ export default function SideNavBar() {
               icon={<FiBookmark />}
             />
             <NavItem
-              path={`/${currentUserDetails.username}`}
+              path={`/profile/${currentUserDetails.username}`}
               pathName="Profile"
               icon={<FiUser />}
             />

@@ -22,7 +22,10 @@ function ComposeChirpForm({
   function handleFormSubmit(e) {
     e.preventDefault();
     const newChirp = {
-      user: currentUserDetails,
+      userId: currentUserDetails.uid,
+      username: currentUserDetails.username,
+      userPic: currentUserDetails.profileUrl,
+      name: currentUserDetails.name,
       message: message,
       createdAt: serverTimestamp(),
       likes: [],

@@ -81,7 +81,7 @@ export default function ChirpProvider({ children }) {
   }
 
   function getChirpsForCurrentUser(userId) {
-    return allChirps.filter((chirp) => chirp.user.uid === userId);
+    return allChirps.filter((chirp) => chirp.userId === userId);
   }
   function getChirpById(chirpId) {
     return allChirps.filter((chirp) => chirp.chirpId === chirpId);

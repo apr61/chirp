@@ -1,11 +1,10 @@
 function ReplyingChirp({ chirp }) {
-  const { uid, name, username, profileUrl } = chirp.user;
-  const { chirpId, message, postedAt, parentId, replyingTo } = chirp;
+  const { message, replyingTo, name, username, userPic } = chirp;
   return (
     <>
       <div className="flex gap-4 items-start">
         <div className="w-12 h-12 rounded-full shrink-0 overflow-hidden">
-          <img src={profileUrl} className="w-full h-full object-cover" />
+          <img src={userPic} className="w-full h-full object-cover" />
         </div>
         <div className="">
           <div className="flex items-center gap-2">

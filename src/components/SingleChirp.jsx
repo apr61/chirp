@@ -17,7 +17,7 @@ import ReplyingChirp from "./ReplyingChirp";
 import { Link } from "react-router-dom";
 import IconBtn from "./IconBtn";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { formatFirebaseTime } from "../utils/TimeFormatter";
+import { formatTimeAgo } from "../utils/TimeFormatter";
 
 function SingleChirp({ chirp }) {
   const [openChirpForm, setOpenChirpForm] = useState(false);
@@ -28,8 +28,18 @@ function SingleChirp({ chirp }) {
     chirpRechirpLoacalAndServer,
     getChirpReplies,
   } = useChirpContext();
-  const { uid, name, username, profileUrl } = chirp.user;
-  const { chirpId, message, rechirps, likes, createdAt, replyingTo } = chirp;
+  const {
+    chirpId,
+    message,
+    rechirps,
+    likes,
+    createdAt,
+    replyingTo,
+    userId,
+    name,
+    username,
+    userPic,
+  } = chirp;
   const isLiked = likes.indexOf(currentUserDetails.uid) !== -1;
   const isRechirped = rechirps.indexOf(currentUserDetails.uid) !== -1;
   const replies = getChirpReplies(chirpId);
@@ -55,17 +65,20 @@ function SingleChirp({ chirp }) {
     <>
       <article className="flex xl:gap-4 gap-4 p-2 items-start border-b border-slate-100 hover:bg-gray-100 relative">
         <div className="sm:w-12 sm:h-12 w-10 h-10 rounded-full shrink-0 overflow-hidden">
-          <img src={profileUrl} className="w-full h-full object-cover" />
+          <img src={userPic} className="w-full h-full object-cover" />
         </div>
         <div className="w-full">
-          <div className="inline-flex items-center gap-2 whitespace-nowrap max-w-[300px] text-ellipsis overflow-hidden">
-            <Link to={`/${username}`} className="flex items-center gap-2">
+          <div className="flex items-center gap-2">
+            <Link
+              to={`/profile/${username}`}
+              className="flex items-center gap-2"
+            >
               <h3 className="font-bold">{name}</h3>
               <p className="text-slate-500">@{username}</p>
             </Link>
             <p className="text-slate-500">
               {" "}
-              - {formatFirebaseTime(createdAt.seconds)}
+              - {formatTimeAgo(createdAt.seconds)}
             </p>
           </div>
           {replyingTo && (
@@ -95,12 +108,12 @@ function SingleChirp({ chirp }) {
               icon={<FaRetweet />}
               onClick={handleReChirp}
               title={
-                currentUserDetails.uid === uid
+                currentUserDetails.uid === userId
                   ? "You can't rechirp your own chirp"
                   : "Rechirp"
               }
               action="rechirp"
-              disabled={currentUserDetails.uid === uid}
+              disabled={currentUserDetails.uid === userId}
               actionDone={isRechirped}
             />
             <IconBtn
@@ -146,7 +159,7 @@ function SingleChirp({ chirp }) {
                 Bookmark
               </button>
             </div>
-            {currentUserDetails.uid === uid && (
+            {currentUserDetails.uid === userId && (
               <div className="hover:bg-gray-100 px-4 py-1">
                 <button
                   onClick={handleChirpDelete}

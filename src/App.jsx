@@ -44,7 +44,7 @@ export default function App() {
                 }
               />
               <Route
-                path="/:uname"
+                path="/profile/:uname"
                 element={<ContextLayout provider={ProfileProvider} />}
               >
                 <Route index element={<Profile />} />

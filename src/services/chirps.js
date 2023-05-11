@@ -63,13 +63,3 @@ export const getChirpById = async (chirpId) => {
   const docSnap = await getDoc(docRef);
   return { chirpId: chirpId, ...docSnap.data() };
 };
-
-export const getRepliesById = async (chirpId) => {
-  const replies = [];
-  const q = query(collection(db, "chirps"), where("parentId", "==", chirpId));
-  const querySnapShot = await getDocs(q);
-  querySnapShot.forEach((doc) => {
-    replies.push({ chirpId: doc.id, ...doc.data() });
-  });
-  return replies;
-};
