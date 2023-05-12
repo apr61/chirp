@@ -63,22 +63,21 @@ function SingleChirp({ chirp }) {
   function handleChirpBookmark() {}
   return (
     <>
-      <article className="flex xl:gap-4 gap-4 p-2 items-start border-b border-slate-100 hover:bg-[--hover-bg] transition-colors duration-200 ease-in relative">
+      <article className="flex xl:gap-4 gap-4 p-2 w-full items-start border-b border-slate-100 hover:bg-[--hover-bg] transition-colors duration-200 ease-in relative">
         <div className="sm:w-12 sm:h-12 w-10 h-10 rounded-full shrink-0 overflow-hidden">
           <img src={userPic} className="w-full h-full object-cover" />
         </div>
-        <div className="w-full">
-          <div className="flex items-center gap-2">
+        <div className="w-full min-w-0">
+          <div className="flex items-center gap-2 min-w-0">
             <Link
               to={`/profile/${username}`}
               className="flex items-center gap-2"
             >
-              <h3 className="font-bold">{name}</h3>
+              <h3 className="font-bold whitespace-nowrap">{name}</h3>
               <p className="text-slate-500">@{username}</p>
             </Link>
-            <p className="text-slate-500">
-              {" "}
-              - {formatTimeAgo(createdAt.seconds)}
+            <p className="text-slate-500 truncate">
+              - {" " + formatTimeAgo(createdAt.seconds)}
             </p>
           </div>
           {replyingTo && (
@@ -129,14 +128,14 @@ function SingleChirp({ chirp }) {
           </div>
         </div>
         <button
-          className="absolute top-2 right-2 sm:top-4 sm:right-4 rounded-full flex items-center justify-center p-2 text-gray-500"
+          className="absolute top-2 right-2 rounded-full flex items-center justify-center p-2 text-gray-500"
           title="More options"
           onClick={handleMoreOptionsDialog}
         >
           <BsThreeDotsVertical />
         </button>
         {openMoreOptionsDialog && (
-          <div className="absolute top-8 right-9 shadow-2xl bg-white py-2 rounded-md max-w-[10rem] w-full z-10">
+          <div className="absolute top-6 right-7 shadow-2xl bg-white py-2 rounded-md max-w-[10rem] w-full z-10">
             <div className="hover:bg-gray-100 px-4 py-1">
               <button
                 onClick={handleChirpEdit}

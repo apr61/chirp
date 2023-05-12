@@ -14,7 +14,7 @@ export default function Explore() {
     <>
       <Header>
         <h1 className="text-xl font-bold p-4">Explore</h1>
-        <div className="flex">
+        <div className="flex overflow-x-scroll">
           <TabBtn
             text="For You"
             activeTab={activeTab}

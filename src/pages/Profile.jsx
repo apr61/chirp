@@ -51,22 +51,22 @@ export default function Profile() {
         </div>
       </Header>
       <div>
-        <div className="h-52 w-full relative">
+        <div className="h-40 sm:h-52 w-full relative">
           <img
             src={userDetails.headerImg}
             className="h-full w-full object-cover"
             alt="User header pic"
             loading="lazy"
           />
-          <div className="absolute -bottom-20 left-4">
+          <div className="absolute -bottom-10 left-4 sm:-bottom-20 sm:left-4 w-24 h-24 sm:h-40 sm:w-40">
             <img
               src={userDetails.profileUrl}
-              className="h-40 w-40 rounded-full border-4 border-white object-cover"
+              className="rounded-full border-4 border-white object-cover"
               alt="User header pic"
               loading="lazy"
             />
           </div>
-          <div className="absolute -bottom-16 right-8">
+          <div className="absolute -bottom-12 right-2 sm:-bottom-16 sm:right-8">
             {userDetails.userId === currentUserDetails.uid ? (
               <Button small outline>
                 Edit Profile
@@ -83,7 +83,7 @@ export default function Profile() {
             )}
           </div>
         </div>
-        <div className="mt-20 ml-4">
+        <div className="mt-10 sm:mt-20 ml-4">
           <h2 className="text-xl font-bold">{userDetails.name}</h2>
           <p className="text-gray-700">@{userDetails.username}</p>
           <div className="flex gap-2 items-center text-gray-700 my-4">
@@ -107,7 +107,7 @@ export default function Profile() {
             </Link>
           </div>
         </div>
-        <div className="flex mt-4 border-b border-slate-100">
+        <div className="flex mt-4 border-b border-slate-100 overflow-x-scroll">
           <TabBtn
             text="Chirps"
             activeTab={activeTab}
