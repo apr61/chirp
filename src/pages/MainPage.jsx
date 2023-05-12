@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import useSignUpContext from "../hooks/useSignUpContext";

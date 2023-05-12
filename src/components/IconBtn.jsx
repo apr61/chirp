@@ -39,7 +39,7 @@ function IconBtn({
         CHIRP_ACTIONS[action]["hover-text"]
       } ${
         actionDone ? CHIRP_ACTIONS[action]["action-done"] : "text-gray-700"
-      } disabled:cursor-not-allowed disabled:text-gray-300`}
+      } disabled:cursor-not-allowed disabled:text-gray-300 transition duration-100 ease-in`}
       onClick={onClick}
       disabled={disabled}
     >

@@ -82,13 +82,6 @@ export default function SideNavBar() {
               pathName="Profile"
               icon={<FiUser />}
             />
-
-            <div className="rounded-full text-center hover:bg-gray-100">
-              <button className="p-2 sm:p-4 xl:px-4 xl:py-2 flex items-center gap-4 text-xl">
-                <FiMoreHorizontal />
-                <span className="sm:hidden xl:block">More</span>
-              </button>
-            </div>
           </nav>
           <div className="mt-3 xl:w-full">
             <Button
@@ -102,7 +95,7 @@ export default function SideNavBar() {
             </Button>
           </div>
           <div className="mt-auto relative w-full">
-            <div className="border-gray-200 rounded-full hover:bg-gray-100 focus:ring-1 p-4 xl:p-2 sm:grid sm:place-items-center">
+            <div className="border-gray-200 rounded-full transition duration-200 ease-in hover:bg-[--hover-bg] focus:ring-1 p-4 xl:p-2 sm:grid sm:place-items-center">
               <button
                 className="flex items-center gap-4"
                 onClick={handleUserOptions}
@@ -132,7 +125,7 @@ export default function SideNavBar() {
               <div className="absolute -top-20 w-full border border-gray-300 rounded-xl py-4 shadow-md bg-white">
                 <button
                   onClick={handleLogOut}
-                  className="w-full hover:bg-gray-200 p-2 bg-white"
+                  className="w-full hover:bg-[--hover-bg] p-2 bg-white"
                 >
                   {loading ? "Loading..." : "Logout"}
                 </button>

@@ -63,7 +63,9 @@ function ComposeChirpForm({
           ></textarea>
           <div className="flex">
             <div className="ml-auto">
-              <Button rounded="rounded-md">Chirp</Button>
+              <Button primary={true} small={true}>
+                Chirp
+              </Button>
             </div>
           </div>
         </div>

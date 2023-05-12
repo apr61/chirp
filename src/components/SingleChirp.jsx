@@ -63,7 +63,7 @@ function SingleChirp({ chirp }) {
   function handleChirpBookmark() {}
   return (
     <>
-      <article className="flex xl:gap-4 gap-4 p-2 items-start border-b border-slate-100 hover:bg-gray-100 relative">
+      <article className="flex xl:gap-4 gap-4 p-2 items-start border-b border-slate-100 hover:bg-[--hover-bg] transition-colors duration-200 ease-in relative">
         <div className="sm:w-12 sm:h-12 w-10 h-10 rounded-full shrink-0 overflow-hidden">
           <img src={userPic} className="w-full h-full object-cover" />
         </div>
