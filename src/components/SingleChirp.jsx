@@ -79,6 +79,13 @@ function SingleChirp({ chirp }) {
             <p className="text-slate-500 truncate">
               - {" " + formatTimeAgo(createdAt.seconds)}
             </p>
+            <button
+              className="rounded-full flex items-center justify-center text-gray-500 ml-auto"
+              title="More options"
+              onClick={handleMoreOptionsDialog}
+            >
+              <BsThreeDotsVertical />
+            </button>
           </div>
           {replyingTo && (
             <p className="text-gray-500">
@@ -127,13 +134,6 @@ function SingleChirp({ chirp }) {
             <IconBtn icon={<FaShare />} title="Share" action="share" />
           </div>
         </div>
-        <button
-          className="absolute top-2 right-2 rounded-full flex items-center justify-center p-2 text-gray-500"
-          title="More options"
-          onClick={handleMoreOptionsDialog}
-        >
-          <BsThreeDotsVertical />
-        </button>
         {openMoreOptionsDialog && (
           <div className="absolute top-6 right-7 shadow-2xl bg-white py-2 rounded-md max-w-[10rem] w-full z-10">
             <div className="hover:bg-gray-100 px-4 py-1">

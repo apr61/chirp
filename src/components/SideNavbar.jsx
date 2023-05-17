@@ -48,7 +48,7 @@ export default function SideNavBar() {
       </button>
       <aside
         className={`${
-          isMenuOpen && "opacity-100 z-50  w-[80vw] box-shadow-nav"
+          isMenuOpen && "opacity-100 z-50 box-shadow-nav"
         } opacity-0 z-0 fixed left-0 bottom-0 top-0 bg-white h-screen overflow-y-auto overflow-x-hidden sm:block sm:opacity-100 sm:z-50 sm:sticky xl:w-[16rem]`}
       >
         <div className="flex flex-col items-start p-4 sm:items-center sm:p-0 lg:px-4 xl:px-4 py-2 xl:items-start min-h-screen">

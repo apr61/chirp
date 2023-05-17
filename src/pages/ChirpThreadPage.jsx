@@ -63,13 +63,13 @@ export default function ChirpThreadPage() {
             <div className="flex gap-4 items-start">
               <div className="w-12 h-12 rounded-full shrink-0 overflow-hidden">
                 <img
-                  src={chirp.user.profileUrl}
+                  src={chirp.userPic}
                   className="w-full h-full object-cover"
                 />
               </div>
               <div className="flex items-start flex-col">
-                <h3 className="font-bold">{chirp.user.name}</h3>
-                <p className="text-slate-500">@{chirp.user.username}</p>
+                <h3 className="font-bold">{chirp.name}</h3>
+                <p className="text-slate-500">@{chirp.username}</p>
               </div>
             </div>
             <div className="py-2">
@@ -117,12 +117,12 @@ export default function ChirpThreadPage() {
                 icon={<FaRetweet />}
                 onClick={handleReChirp}
                 title={
-                  currentUserDetails.uid === chirp.user.uid
+                  currentUserDetails.uid === chirp.userId
                     ? "You can't rechirp your own chirp"
                     : "Rechirp"
                 }
                 action="rechirp"
-                disabled={currentUserDetails.uid === chirp.user.uid}
+                disabled={currentUserDetails.uid === chirp.userId}
                 actionDone={getIsRechirped()}
               />
               <IconBtn
@@ -148,7 +148,7 @@ export default function ChirpThreadPage() {
               closeModal={handleChirpReply}
               isRepliying={true}
               parentId={chirp.chirpId}
-              replyingTo={chirp.user.username}
+              replyingTo={chirp.username}
             >
               <ReplyingChirp chirp={chirp} />
             </ComposeChirpForm>

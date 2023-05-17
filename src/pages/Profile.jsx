@@ -107,7 +107,7 @@ export default function Profile() {
             </Link>
           </div>
         </div>
-        <div className="flex mt-4 border-b border-slate-100 overflow-x-scroll">
+        <div className="flex mt-4 border-b border-slate-100 overflow-x-auto">
           <TabBtn
             text="Chirps"
             activeTab={activeTab}

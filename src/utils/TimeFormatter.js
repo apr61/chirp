@@ -9,29 +9,38 @@ export function formatFirebaseTime(seconds) {
   return formatter.format(new Date(seconds * 1000));
 }
 
-const timeAgoFormatter = new Intl.RelativeTimeFormat(undefined, {
-  numeric: "auto",
-});
-
-const DIVISIONS = [
-  { amount: 60, name: "seconds" },
-  { amount: 60, name: "minutes" },
-  { amount: 24, name: "hours" },
-  { amount: 7, name: "days" },
-  { amount: 4.34524, name: "weeks" },
-  { amount: 12, name: "months" },
-  { amount: Number.POSITIVE_INFINITY, name: "years" },
-];
-
 export function formatTimeAgo(seconds) {
   const date = new Date(seconds * 1000);
   let duration = (date - new Date()) / 1000;
+  const timeAgo = -Math.round(duration / 86400);
+  if (timeAgo >= 7) return dateFormatterDDMM(seconds);
+  return timeWhenltweek(seconds);
+}
 
-  for (let i = 0; i < DIVISIONS.length; i++) {
-    const division = DIVISIONS[i];
-    if (Math.abs(duration) < division.amount) {
-      return timeAgoFormatter.format(Math.round(duration), division.name);
-    }
-    duration /= division.amount;
+function dateFormatterDDMM(seconds) {
+  const formatter = Intl.DateTimeFormat(undefined, {
+    day: "2-digit",
+    month: "short",
+  });
+  return formatter.format(new Date(seconds * 1000));
+}
+
+function timeWhenltweek(timestamp) {
+  const now = new Date().getTime();
+  const seconds = Math.floor((now - timestamp * 1000) / 1000);
+  if (seconds < 60) {
+    return seconds + "s";
+  }
+  const minutes = Math.floor(seconds / 60);
+  if (minutes < 60) {
+    return minutes + "m";
+  }
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) {
+    return hours + "h";
+  }
+  const days = Math.floor(hours / 24);
+  if (days < 30) {
+    return days + "d";
   }
 }
