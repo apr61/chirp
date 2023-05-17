@@ -15,8 +15,8 @@ export default function Home() {
   return (
     <>
       <Header>
-        <h1 className="hidden text-xl font-bold p-4 sm:block">Home</h1>
-        <div className="sm:hidden flex justify-center items-center p-2">
+        <h1 className="hidden text-xl font-bold sm:p-4 sm:block">Home</h1>
+        <div className="sm:hidden flex justify-center items-center sm:p-2">
           <Logo />
         </div>
         <div className="flex">

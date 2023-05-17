@@ -11,7 +11,7 @@ function NavItem({ pathName = "", path, icon }) {
       to={path}
     >
       <span className="text-2xl">{icon}</span>
-      <span className="sm:hidden xl:block">{pathName}</span>
+      <span className="hidden xl:block">{pathName}</span>
     </NavLink>
   );
 }
