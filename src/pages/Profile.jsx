@@ -93,13 +93,13 @@ export default function Profile() {
             <p>Joined August 2022</p>
           </div>
           <div className="flex gap-4 text-gray-700">
-            <Link to={`/${userDetails.username}/following`}>
+            <Link to={`/profile/${userDetails.username}/following`}>
               <span className="font-bold text-black">
                 {userDetails.following?.length}
               </span>{" "}
               Following
             </Link>
-            <Link to={`/${userDetails.username}/followers`}>
+            <Link to={`/profile/${userDetails.username}/followers`}>
               <span className="font-bold text-black">
                 {userDetails.followers?.length}
               </span>{" "}
