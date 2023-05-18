@@ -24,6 +24,12 @@ export const getUserDetailsByUsername = async (username) => {
   return userDetails[0];
 };
 
+export const getUserDetailsById = async (userId) => {
+  const docRef = doc(db, "users-details", userId);
+  const docSnap = await getDoc(docRef);
+  return {userId , ...docSnap.data()}
+};
+
 export const toggleFollow = async (userId, requestedUserId, isFollower) => {
   const docRefUser = doc(db, "users-details", userId);
   await updateDoc(docRefUser, {
@@ -37,15 +43,11 @@ export const toggleFollow = async (userId, requestedUserId, isFollower) => {
   });
 };
 
-export const getFollowersList = async (userId) => {
-  let FollowersList = [];
-  const docRef = doc(db, "users-details", userId);
-  const docSnapShot = await getDoc(docRef);
-  const followersUserIds = docSnapShot.data().followers;
-  const requests = followersUserIds.map((uid) => doc(db, "users-details", uid));
-  const usersQSnap = await Promise.all(requests);
-  console.log(requests);
-  // usersQSnap.forEach((qSnap) => {
-  //   console.log({ userId: qSnap.id, ...qSnap.data() });
-  // });
+export const getUsersList = async () => {
+  const usersList = [];
+  const querySnapshot = await getDocs(collection(db, "users-details"));
+  querySnapshot.forEach((doc) => {
+    usersList.push({ userId: doc.id, ...doc.data() });
+  });
+  return usersList;
 };

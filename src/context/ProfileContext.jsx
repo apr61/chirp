@@ -24,8 +24,7 @@ function ProfileProvider({ children }) {
   useMemo(() => {
     getUserData(username);
   }, [username]);
-  async function onToggleFollowBtn(userId, requestedUserId, isFollower) {
-    await toggleFollow(userId, requestedUserId, isFollower);
+  function setLocalFollowers(requestedUserId, isFollower) {
     setUserDetails((user) => {
       if (isFollower) {
         return {
@@ -44,7 +43,7 @@ function ProfileProvider({ children }) {
 
   return (
     <ProfileContext.Provider
-      value={{ isLoading, chirps, userDetails, onToggleFollowBtn }}
+      value={{ isLoading, chirps, userDetails, setLocalFollowers }}
     >
       {children}
     </ProfileContext.Provider>

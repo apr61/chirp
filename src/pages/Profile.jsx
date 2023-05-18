@@ -3,35 +3,26 @@ import { BsCalendar3 } from "react-icons/bs";
 import Header from "../components/Header";
 import TabBtn from "../components/TabBtn";
 import Button from "../components/Button";
+import WhoToFollow from "../components/WhoToFollow";
 import useAuthContext from "../hooks/useAuthContext";
 import useProfileContext from "../hooks/useProfileContext";
 import SingleChirp from "../components/SingleChirp";
 import { Link, useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
+import FollowBtn from "../components/FollowBtn";
 
 export default function Profile() {
   const [activeTab, setActiveTab] = useState("Chirps");
   const { currentUserDetails } = useAuthContext();
   const navigate = useNavigate();
-  const { isLoading, chirps, userDetails, onToggleFollowBtn } =
-    useProfileContext();
-
+  const { isLoading, chirps, userDetails } = useProfileContext();
   function handleActiveTab(e) {
     setActiveTab(e.target.textContent);
   }
   function navBack() {
     navigate(-1);
   }
-  function getIsFollower() {
-    return userDetails.followers.indexOf(currentUserDetails.uid) !== -1;
-  }
-  function handleToggleFollowBtn() {
-    onToggleFollowBtn(
-      userDetails.userId,
-      currentUserDetails.uid,
-      getIsFollower()
-    );
-  }
+
   if (isLoading) return "Loading...";
 
   return (
@@ -72,14 +63,7 @@ export default function Profile() {
                 Edit Profile
               </Button>
             ) : (
-              <Button
-                onClick={handleToggleFollowBtn}
-                small
-                outline={getIsFollower()}
-                black={!getIsFollower()}
-              >
-                {getIsFollower() ? "Following" : "Follow"}
-              </Button>
+              <FollowBtn userId={userDetails.userId} />
             )}
           </div>
         </div>
@@ -135,6 +119,7 @@ export default function Profile() {
               return <SingleChirp chirp={chirp} key={chirp.chirpId} />;
             })}
         </div>
+        <WhoToFollow />
       </div>
     </>
   );
