@@ -63,7 +63,12 @@ export default function ChirpProvider({ children }) {
     });
     await toggleRechirpChirpService(chirpId, userId, isRechirped);
   };
-
+  const getChirpById = (cid) => {
+    return chirpState.chirps.filter((chirp) => chirp.chirpId === cid)[0];
+  };
+  const getChirpsForCurrentUser = (userId) => {
+    return chirpState.chirps.filter((chirp) => chirp.userId === userId);
+  };
   return (
     <ChirpContext.Provider
       value={{
@@ -74,6 +79,9 @@ export default function ChirpProvider({ children }) {
         deleteLocalAndServerChirp,
         chirpLikeLocalAndServer,
         chirpRechirpLoacalAndServer,
+        getChirpById,
+        chirpDispatch,
+        getChirpsForCurrentUser,
       }}
     >
       {children}

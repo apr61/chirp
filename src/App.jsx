@@ -15,7 +15,6 @@ import ContextLayout from "./layouts/ContextLayout";
 import AuthProvider from "./context/AuthContext";
 import RequireAuthLayout from "./layouts/RequireAuthLayout";
 import ChirpProvider from "./context/ChirpContext";
-import ChirpThreadProvider from "./context/ChirpThreadContext";
 import ProfileProvider from "./context/ProfileContext";
 import FollowersList from "./components/FollowersList";
 import FollowingList from "./components/FollowingList";
@@ -37,11 +36,7 @@ export default function App() {
               <Route
                 exact
                 path="/:username/status/:cid"
-                element={
-                  <ChirpThreadProvider>
-                    <ChirpThreadPage />
-                  </ChirpThreadProvider>
-                }
+                element={<ChirpThreadPage />}
               />
               <Route
                 path="/profile/:uname"

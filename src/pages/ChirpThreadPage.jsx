@@ -7,41 +7,56 @@ import {
   FaArrowLeft,
 } from "react-icons/fa";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ComposeChirpForm from "../components/ComposeChirpForm";
 import Header from "../components/Header";
 import IconBtn from "../components/IconBtn";
 import Modal from "../components/Modal";
 import ReplyingChirp from "../components/ReplyingChirp";
 import SingleChirp from "../components/SingleChirp";
-import useChirpThreadContext from "../hooks/useChirpThreadContext";
+import useChirpContext from "../hooks/useChirpContext";
 import useAuthContext from "../hooks/useAuthContext";
 import { formatFirebaseTime } from "../utils/TimeFormatter";
 
 export default function ChirpThreadPage() {
   const [openChirpForm, setOpenChirpForm] = useState(false);
   const navigate = useNavigate();
-  const { isLoading, chirp, replies, onChirpLike, onChirpReChirp } =
-    useChirpThreadContext();
+  const { cid } = useParams();
   const { currentUserDetails } = useAuthContext();
+  const {
+    getChirpById,
+    chirpRechirpLoacalAndServer,
+    chirpLikeLocalAndServer,
+    isLoading,
+    getChirpReplies,
+  } = useChirpContext();
+
+  const chirp = getChirpById(cid);
+  const replies = getChirpReplies(cid);
+
+  if (chirp == null) {
+    return;
+  }
   function navBack() {
     navigate(-1);
   }
   function handleChirpLike() {
-    onChirpLike(chirp.chirpId, currentUserDetails.uid, getIsLiked());
+    chirpLikeLocalAndServer(chirp.chirpId, currentUserDetails.uid, getIsLiked);
   }
   function handleReChirp() {
-    onChirpReChirp(chirp.chirpId, currentUserDetails.uid, getIsRechirped());
+    chirpRechirpLoacalAndServer(
+      chirp.chirpId,
+      currentUserDetails.uid,
+      getIsRechirped
+    );
   }
   function handleChirpReply() {
     setOpenChirpForm(!openChirpForm);
   }
-  function getIsLiked() {
-    return chirp.likes.indexOf(currentUserDetails.uid) !== -1;
-  }
-  function getIsRechirped() {
-    return chirp.rechirps.indexOf(currentUserDetails.uid) !== -1;
-  }
+  const getIsLiked = chirp.likes.indexOf(currentUserDetails.uid) !== -1;
+
+  const getIsRechirped = chirp.rechirps.indexOf(currentUserDetails.uid) !== -1;
+
   return (
     <>
       <Header>
@@ -123,10 +138,10 @@ export default function ChirpThreadPage() {
                 }
                 action="rechirp"
                 disabled={currentUserDetails.uid === chirp.userId}
-                actionDone={getIsRechirped()}
+                actionDone={getIsRechirped}
               />
               <IconBtn
-                icon={getIsLiked() ? <FaHeart /> : <FaRegHeart />}
+                icon={getIsLiked ? <FaHeart /> : <FaRegHeart />}
                 onClick={handleChirpLike}
                 title="Like"
                 action="like"

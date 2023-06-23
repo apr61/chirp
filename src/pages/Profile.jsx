@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { BsCalendar3 } from "react-icons/bs";
 import Header from "../components/Header";
 import TabBtn from "../components/TabBtn";
@@ -12,10 +11,16 @@ import { FaArrowLeft } from "react-icons/fa";
 import FollowBtn from "../components/FollowBtn";
 
 export default function Profile() {
-  const [activeTab, setActiveTab] = useState("Chirps");
   const { currentUserDetails } = useAuthContext();
   const navigate = useNavigate();
-  const { isLoading, chirps, userDetails } = useProfileContext();
+  const {
+    isLoading,
+    chirps,
+    userDetails,
+    activeTab,
+    setActiveTab,
+    filteredChirps,
+  } = useProfileContext();
   function handleActiveTab(e) {
     setActiveTab(e.target.textContent);
   }
@@ -114,10 +119,9 @@ export default function Profile() {
           />
         </div>
         <div className="py-2">
-          {activeTab === "Chirps" &&
-            chirps.map((chirp) => {
-              return <SingleChirp chirp={chirp} key={chirp.chirpId} />;
-            })}
+          {filteredChirps.map((chirp) => {
+            return <SingleChirp chirp={chirp} key={chirp.chirpId} />;
+          })}
         </div>
         <WhoToFollow />
       </div>
