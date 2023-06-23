@@ -2,8 +2,8 @@ import { createContext, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   getChirpById,
-  toggleLikeChirp,
-  toggleRechirpChirp,
+  toggleLikeChirpService,
+  toggleRechirpChirpService,
 } from "../services/chirps";
 import useChirpContext from "../hooks/useChirpContext";
 
@@ -47,12 +47,12 @@ function ChirpThreadProvider({ children }) {
     return setChirp({ ...chirp, rechirps: [...chirp.rechirps, userId] });
   }
   function onChirpLike(chirpId, userId, isLiked) {
-    toggleLikeChirp(chirpId, userId, isLiked).then(() => {
+    toggleLikeChirpService(chirpId, userId, isLiked).then(() => {
       likeChirpLocal(userId, isLiked);
     });
   }
   function onChirpReChirp(chirpId, userId, isRechirped) {
-    toggleRechirpChirp(chirpId, userId, isRechirped).then(() => {
+    toggleRechirpChirpService(chirpId, userId, isRechirped).then(() => {
       rechirpChirpLocal(userId, isRechirped);
     });
   }

@@ -13,7 +13,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../FirebaseConfig";
 
-export const createNewChirp = async (newChirp) => {
+export const createNewChirpService = async (newChirp) => {
   const docRef = await addDoc(collection(db, "chirps"), newChirp);
   return {
     chirpId: docRef.id,
@@ -31,7 +31,7 @@ export const getChiprsBasedOnUserId = async (userId) => {
   return [...usersChirps];
 };
 
-export const getAllChirps = async () => {
+export const getAllChirpsService = async () => {
   const allChirps = [];
   const querySnapShot = await getDocs(collection(db, "chirps"));
   querySnapShot.forEach((doc) => {
@@ -40,18 +40,18 @@ export const getAllChirps = async () => {
   return [...allChirps];
 };
 
-export const deleteChirpById = async (chirpId) => {
+export const deleteChirpByIdService = async (chirpId) => {
   return await deleteDoc(doc(db, "chirps", chirpId));
 };
 
-export const toggleLikeChirp = async (chirpId, userId, isLiked) => {
+export const toggleLikeChirpService = async (chirpId, userId, isLiked) => {
   const docRef = doc(db, "chirps", chirpId);
   return await updateDoc(docRef, {
     likes: !isLiked ? arrayUnion(userId) : arrayRemove(userId),
   });
 };
 
-export const toggleRechirpChirp = async (chirpId, userId, isRechirped) => {
+export const toggleRechirpChirpService = async (chirpId, userId, isRechirped) => {
   const docRef = doc(db, "chirps", chirpId);
   return await updateDoc(docRef, {
     rechirps: isRechirped ? arrayRemove(userId) : arrayUnion(userId),

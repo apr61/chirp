@@ -37,7 +37,7 @@ export default function Profile() {
           </button>
           <div className="flex flex-col">
             <h1 className="text-xl font-bold">{userDetails.name}</h1>
-            <p className="text-slate-500">{chirps.length} Chirps</p>
+            <p className="text-slate-500">{chirps?.length} Chirps</p>
           </div>
         </div>
       </Header>

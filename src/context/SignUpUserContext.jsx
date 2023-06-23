@@ -1,6 +1,6 @@
 import { createContext, useReducer, useState } from "react";
-import { signUpReducer } from "./reducers";
-import { logOut, signIn, signUp } from "../services/auth";
+import { signUpReducer } from "../reducers/signUpReducer";
+import { signIn, signUp } from "../services/auth";
 import { useNavigate } from "react-router-dom";
 
 export const SignUpContext = createContext();

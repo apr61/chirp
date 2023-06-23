@@ -9,7 +9,7 @@ function ProfileProvider({ children }) {
   const [userDetails, setUserDetails] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const { getChirpsForCurrentUser } = useChirpContext();
-  const chirps = getChirpsForCurrentUser(userDetails?.userId);
+  const chirps = [];
   const getUserData = async (username) => {
     try {
       setIsLoading(true);

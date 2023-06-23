@@ -1,104 +1,79 @@
-import { createContext, useEffect, useMemo, useState } from "react";
+import { createContext, useEffect, useMemo, useReducer } from "react";
+import chirpReducer, { ChirpInitialState } from "../reducers/chirpReducer";
 import {
-  createNewChirp,
-  deleteChirpById,
-  getAllChirps,
-  toggleLikeChirp,
-  toggleRechirpChirp,
+  createNewChirpService,
+  deleteChirpByIdService,
+  getAllChirpsService,
+  toggleLikeChirpService,
+  toggleRechirpChirpService,
 } from "../services/chirps";
 
 export const ChirpContext = createContext();
 
 export default function ChirpProvider({ children }) {
-  const [allChirps, setAllChirps] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-
+  const [chirpState, chirpDispatch] = useReducer(
+    chirpReducer,
+    ChirpInitialState
+  );
+  const getAllChirps = async () => {
+    try {
+      chirpDispatch({ type: "LOADING", payload: true });
+      const data = await getAllChirpsService();
+      chirpDispatch({ type: "DISPLAY_CHIRPS", payload: [...data] });
+    } catch (err) {
+      console.error(err.code);
+    } finally {
+      chirpDispatch({ type: "LOADING", payload: false });
+    }
+  };
   useEffect(() => {
-    setIsLoading(true);
-    getAllChirps()
-      .then((allChirps) => setAllChirps(allChirps))
-      .finally(() => {
-        setIsLoading(false);
-      });
+    getAllChirps();
   }, []);
   const chirpsByParentId = useMemo(() => {
-    if (allChirps == null) return [];
+    if (chirpState.chirps == null) return [];
     const group = {};
-    allChirps.forEach((chirp) => {
+    chirpState.chirps.forEach((chirp) => {
       group[chirp.parentId] ||= [];
       group[chirp.parentId].push(chirp);
     });
     return group;
-  }, [allChirps]);
+  }, [chirpState.chirps]);
   function getChirpReplies(parentId) {
     return chirpsByParentId[parentId];
   }
-  async function createLocalAndServerChirp(newChirp) {
-    const newChirpCreated = await createNewChirp(newChirp);
-    setAllChirps((oldChirps) => [newChirpCreated, ...oldChirps]);
-  }
-  function deleteLocalAndServerChirp(chirpId) {
-    deleteChirpById(chirpId);
-    setAllChirps((chirp) => chirp.filter((chirp) => chirp.chirpId !== chirpId));
-  }
-  function chirpLikeLocalAndServer(chirpId, userId, isLiked) {
-    toggleLikeChirp(chirpId, userId, isLiked).then(() => {
-      return setAllChirps((oldChirps) =>
-        oldChirps.map((chirp) => {
-          if (chirp.chirpId === chirpId) {
-            if (isLiked) {
-              return {
-                ...chirp,
-                likes: chirp.likes.filter((uid) => uid !== userId),
-              };
-            }
-            return { ...chirp, likes: [userId, ...chirp.likes] };
-          } else {
-            return chirp;
-          }
-        })
-      );
+  const createLocalAndServerChirp = async (newChirp) => {
+    const newChirpCreated = await createNewChirpService(newChirp);
+    chirpDispatch({ type: "ADD_NEW_CHIRP", payload: newChirpCreated });
+  };
+  const deleteLocalAndServerChirp = async (chirpId) => {
+    chirpDispatch({ type: "DELETE_A_CHIRP", payload: chirpId });
+    await deleteChirpByIdService(chirpId);
+  };
+  const chirpLikeLocalAndServer = async (chirpId, userId, isLiked) => {
+    chirpDispatch({
+      type: "LIKE_UNLIKE_A_CHIRP",
+      payload: { chirpId, userId, isLiked },
     });
-  }
-  function chirpRechirpLoacalAndServer(chirpId, userId, isRechirped) {
-    toggleRechirpChirp(chirpId, userId, isRechirped).then(() =>
-      setAllChirps((oldChirps) =>
-        oldChirps.map((chirp) => {
-          if (chirp.chirpId === chirpId) {
-            if (isRechirped) {
-              return {
-                ...chirp,
-                rechirps: chirp.rechirps.filter((uid) => uid !== userId),
-              };
-            }
-            return { ...chirp, rechirps: [userId, ...chirp.rechirps] };
-          } else {
-            return chirp;
-          }
-        })
-      )
-    );
-  }
-
-  function getChirpsForCurrentUser(userId) {
-    return allChirps.filter((chirp) => chirp.userId === userId);
-  }
-  function getChirpById(chirpId) {
-    return allChirps.filter((chirp) => chirp.chirpId === chirpId);
-  }
+    await toggleLikeChirpService(chirpId, userId, isLiked);
+  };
+  const chirpRechirpLoacalAndServer = async (chirpId, userId, isRechirped) => {
+    chirpDispatch({
+      type: "RECHIRP",
+      payload: { chirpId, userId, isRechirped },
+    });
+    await toggleRechirpChirpService(chirpId, userId, isRechirped);
+  };
 
   return (
     <ChirpContext.Provider
       value={{
         rootChirps: chirpsByParentId[null],
         getChirpReplies,
-        isLoading,
+        ...chirpState,
         createLocalAndServerChirp,
         deleteLocalAndServerChirp,
         chirpLikeLocalAndServer,
         chirpRechirpLoacalAndServer,
-        getChirpsForCurrentUser,
-        getChirpById,
       }}
     >
       {children}
